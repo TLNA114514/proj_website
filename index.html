@@ -1,80 +1,735 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#fafaf8">
-  <meta name="description" content="EgoFact estimates dense full-hand tactile fields from egocentric human videos. A unified tactile representation, tracker-free model, and cross-device dataset.">
-  <meta property="og:title" content="EgoFact — From vision to touch">
-  <meta property="og:description" content="Estimating Dense Full-Hand Tactile Fields from Egocentric Human Videos.">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://TLNA114514.github.io/proj_website/assets/figures/overview.webp">
-  <title>EgoFact — From vision to touch</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css">
-  <script src="site-config.js" defer></script>
-  <script src="app.js" defer></script>
-</head>
-<body>
-  <a class="skip-link" href="#main">Skip to content</a>
-  <div class="reading-progress" aria-hidden="true"></div>
-  <header class="site-header">
-    <a class="brand" href="#" aria-label="EgoFact home"><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true"><path d="M5 22C0 11 8 1 19 4S33 17 26 26M9 23C4 15 9 6 17 8s12 9 7 15M13 25c-7-7-5-15 2-14s9 7 5 13M15 20c-3-4-3-6 0-6s4 4 2 9"/></svg><span>EgoFact</span></a>
-    <nav class="desktop-nav" aria-label="Main navigation"><a href="#overview">Overview</a><a href="#method">Method</a><a href="#dataset">Dataset</a><a href="#results">Results</a></nav>
-    <a class="header-link" data-repo-link href="https://github.com/TLNA114514/proj_website" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a>
-    <button class="menu-toggle" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open navigation"><span></span><span></span></button>
-  </header>
-  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" hidden><a href="#overview">Overview</a><a href="#method">Method</a><a href="#dataset">Dataset</a><a href="#results">Results</a><a href="#resources">Resources</a></nav>
-  <main id="main">
-    <section class="hero page-width" aria-labelledby="hero-title">
-      <div class="hero-topline"><span class="eyebrow"><span class="status-dot"></span> EGOCENTRIC VISION → FULL-HAND TOUCH</span><span class="eyebrow hero-index">RESEARCH PROJECT / 01</span></div>
-      <div class="hero-wordmark" aria-hidden="true">EgoFact<span class="wordmark-dot">.</span><svg class="hero-orbit" viewBox="0 0 140 140"><g fill="none" stroke="currentColor" stroke-width=".7"><ellipse cx="70" cy="70" rx="61" ry="29"/><ellipse cx="70" cy="70" rx="61" ry="29" transform="rotate(45 70 70)"/><ellipse cx="70" cy="70" rx="61" ry="29" transform="rotate(90 70 70)"/><ellipse cx="70" cy="70" rx="61" ry="29" transform="rotate(135 70 70)"/></g><circle cx="70" cy="70" r="5" fill="currentColor"/></svg></div>
-      <div class="hero-description"><h1 id="hero-title"><span class="sr-only">EgoFact: </span>Estimating Dense Full-Hand Tactile Fields from Egocentric Human Videos</h1><p>Seeing how we interact.<br>Understanding what we feel.</p></div>
-      <div class="hero-meta"><div class="authors"><span id="author-line">Anonymous authors</span><span id="affiliation-line">Author affiliations to be announced</span></div><div class="hero-actions"><a class="button button-dark" id="paper-link" href="#resources">Read the paper <span aria-hidden="true">↗</span></a><a class="button button-outline" href="#explore">Explore results <span aria-hidden="true">↓</span></a></div></div>
-    </section>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fafaf8" />
+    <meta
+      name="description"
+      content="EgoFact estimates dense full-hand tactile fields from egocentric human videos. A unified tactile representation, tracker-free model, and cross-device dataset."
+    />
+    <meta property="og:title" content="EgoFact — From vision to touch" />
+    <meta
+      property="og:description"
+      content="Estimating Dense Full-Hand Tactile Fields from Egocentric Human Videos."
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:image"
+      content="https://TLNA114514.github.io/proj_website/assets/figures/overview.webp"
+    />
+    <title>EgoFact — From vision to touch</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="site-config.js" defer></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="reading-progress" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="#" aria-label="EgoFact home"
+        ><svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
+          <path
+            d="M5 22C0 11 8 1 19 4S33 17 26 26M9 23C4 15 9 6 17 8s12 9 7 15M13 25c-7-7-5-15 2-14s9 7 5 13M15 20c-3-4-3-6 0-6s4 4 2 9"
+          /></svg
+        ><span>EgoFact</span></a
+      >
+      <nav class="desktop-nav" aria-label="Main navigation">
+        <a href="#overview">Overview</a><a href="#method">Method</a
+        ><a href="#dataset">Dataset</a><a href="#results">Results</a>
+      </nav>
+      <a
+        class="header-link"
+        data-repo-link
+        href="https://github.com/TLNA114514/proj_website"
+        target="_blank"
+        rel="noopener noreferrer"
+        >GitHub <span aria-hidden="true">↗</span></a
+      >
+      <button
+        class="menu-toggle"
+        aria-expanded="false"
+        aria-controls="mobile-nav"
+        aria-label="Open navigation"
+      >
+        <span></span><span></span>
+      </button>
+    </header>
+    <nav
+      id="mobile-nav"
+      class="mobile-nav"
+      aria-label="Mobile navigation"
+      hidden
+    >
+      <a href="#overview">Overview</a><a href="#method">Method</a
+      ><a href="#dataset">Dataset</a><a href="#results">Results</a
+      ><a href="#resources">Resources</a>
+    </nav>
+    <main id="main">
+      <section class="hero page-width" aria-labelledby="hero-title">
+        <div class="hero-topline">
+          <span class="eyebrow"
+            ><span class="status-dot"></span> EGOCENTRIC VISION → FULL-HAND
+            TOUCH</span
+          ><span class="eyebrow hero-index">RESEARCH PROJECT / 01</span>
+        </div>
+        <div class="hero-wordmark" aria-hidden="true">
+          EgoFact<span class="wordmark-dot">.</span
+          ><svg class="hero-orbit" viewBox="0 0 140 140">
+            <g fill="none" stroke="currentColor" stroke-width=".7">
+              <ellipse cx="70" cy="70" rx="61" ry="29" />
+              <ellipse
+                cx="70"
+                cy="70"
+                rx="61"
+                ry="29"
+                transform="rotate(45 70 70)"
+              />
+              <ellipse
+                cx="70"
+                cy="70"
+                rx="61"
+                ry="29"
+                transform="rotate(90 70 70)"
+              />
+              <ellipse
+                cx="70"
+                cy="70"
+                rx="61"
+                ry="29"
+                transform="rotate(135 70 70)"
+              />
+            </g>
+            <circle cx="70" cy="70" r="5" fill="currentColor" />
+          </svg>
+        </div>
+        <div class="hero-description">
+          <h1 id="hero-title">
+            <span class="sr-only">EgoFact: </span>Estimating Dense Full-Hand
+            Tactile Fields from Egocentric Human Videos
+          </h1>
+          <p>Seeing how we interact.<br />Understanding what we feel.</p>
+        </div>
+        <div class="hero-meta">
+          <div class="authors">
+            <span id="author-line">Anonymous authors</span
+            ><span id="affiliation-line"
+              >Author affiliations to be announced</span
+            >
+          </div>
+          <div class="hero-actions">
+            <a class="button button-dark" id="paper-link" href="#resources"
+              >Read the paper <span aria-hidden="true">↗</span></a
+            ><a class="button button-outline" href="#explore"
+              >Explore results <span aria-hidden="true">↓</span></a
+            >
+          </div>
+        </div>
+      </section>
 
-    <section id="explore" class="showcase page-width reveal" aria-label="Interactive examples from the paper">
-      <div class="showcase-bar"><div class="segmented" role="group" aria-label="Choose interaction"><button class="scene-button active" data-scene="controller" aria-pressed="true">Controller interaction</button><button class="scene-button" data-scene="can" aria-pressed="false">Object manipulation</button></div><span class="eyebrow sample-label">FIG. 01 / PAPER SAMPLES</span></div>
-      <div class="viewer" id="sample-viewer">
-        <div class="view-panel rgb-panel"><span class="panel-label"><span class="tiny-dot"></span> 01 / EGOCENTRIC RGB</span><img id="rgb-image" src="assets/figures/controller-2-rgb.webp" width="608" height="341" alt="First-person view of both hands interacting with a game controller" fetchpriority="high"><div class="image-corners" aria-hidden="true"></div><span class="image-caption">The visible interaction</span></div>
-        <div class="view-arrow" aria-hidden="true">↗</div>
-        <div class="view-panel tactile-panel"><span class="panel-label">02 / TACTILE FIELD + CONTACT</span><img id="tactile-image" src="assets/figures/controller-2-tactile.webp" width="608" height="345" alt="EgoFact tactile field and contact map for the controller interaction"><span class="tactile-caption">The underlying touch</span><div class="heat-legend" aria-label="Illustrative tactile intensity scale: low to high"><span>LOW</span><span class="heat-scale"></span><span>HIGH</span></div></div>
-      </div>
-      <div class="viewer-controls"><div class="sample-step"><button id="previous-sample" class="icon-button" aria-label="Previous sample">←</button><span class="mono" id="sample-counter" aria-live="polite">02 / 03</span><button id="next-sample" class="icon-button" aria-label="Next sample">→</button></div><label class="sample-range"><span class="eyebrow">EXPLORE SAMPLES</span><input id="sample-slider" type="range" min="1" max="3" value="2" step="1" aria-label="Sample from the paper" aria-valuetext="Sample 2 of 3"></label><span class="sample-note">Still images from the paper · video coming soon</span></div>
-    </section>
+      <section
+        id="explore"
+        class="showcase page-width reveal"
+        aria-label="Interactive examples from the paper"
+      >
+        <div class="showcase-bar">
+          <div class="segmented" role="group" aria-label="Choose interaction">
+            <button
+              class="scene-button active"
+              data-scene="controller"
+              aria-pressed="true"
+            >
+              Controller interaction</button
+            ><button class="scene-button" data-scene="can" aria-pressed="false">
+              Object manipulation
+            </button>
+          </div>
+          <span class="eyebrow sample-label">FIG. 01 / PAPER SAMPLES</span>
+        </div>
+        <div class="viewer" id="sample-viewer">
+          <div class="view-panel rgb-panel">
+            <span class="panel-label"
+              ><span class="tiny-dot"></span> 01 / EGOCENTRIC RGB</span
+            ><img
+              id="rgb-image"
+              src="assets/figures/controller-2-rgb.webp"
+              width="608"
+              height="341"
+              alt="First-person view of both hands interacting with a game controller"
+              fetchpriority="high"
+            />
+            <div class="image-corners" aria-hidden="true"></div>
+            <span class="image-caption">The visible interaction</span>
+          </div>
+          <div class="view-arrow" aria-hidden="true">↗</div>
+          <div class="view-panel tactile-panel">
+            <span class="panel-label">02 / TACTILE FIELD + CONTACT</span
+            ><img
+              id="tactile-image"
+              src="assets/figures/controller-2-tactile.webp"
+              width="608"
+              height="345"
+              alt="EgoFact tactile field and contact map for the controller interaction"
+            /><span class="tactile-caption">The underlying touch</span>
+            <div
+              class="heat-legend"
+              aria-label="Illustrative tactile intensity scale: low to high"
+            >
+              <span>LOW</span><span class="heat-scale"></span><span>HIGH</span>
+            </div>
+          </div>
+        </div>
+        <div class="viewer-controls">
+          <div class="sample-step">
+            <button
+              id="previous-sample"
+              class="icon-button"
+              aria-label="Previous sample"
+            >
+              ←</button
+            ><span class="mono" id="sample-counter" aria-live="polite"
+              >02 / 03</span
+            ><button
+              id="next-sample"
+              class="icon-button"
+              aria-label="Next sample"
+            >
+              →
+            </button>
+          </div>
+          <label class="sample-range"
+            ><span class="eyebrow">EXPLORE SAMPLES</span
+            ><input
+              id="sample-slider"
+              type="range"
+              min="1"
+              max="3"
+              value="2"
+              step="1"
+              aria-label="Sample from the paper"
+              aria-valuetext="Sample 2 of 3" /></label
+          ><span class="sample-note"
+            >Still images from the paper · video coming soon</span
+          >
+        </div>
+      </section>
 
-    <section id="overview" class="section page-width overview-section">
-      <div class="section-kicker reveal"><span class="eyebrow">01 / OVERVIEW</span><span class="section-rule"></span></div>
-      <div class="editorial-grid"><h2 class="reveal">There’s more to<br>an interaction<br>than <em>meets the eye.</em></h2><div class="overview-copy reveal"><p class="lead">A video shows how a hand moves. But where does it make contact, and how is force distributed?</p><p>EgoFact recovers dense tactile fields for both hands directly from egocentric RGB inputs. It connects visible actions with the physical signals at the hand–object interface, even when contact is hidden from view.</p><p>By mapping different tactile sensors onto one canonical 3D hand surface, we bring heterogeneous devices into a shared representation for learning and evaluation.</p><details class="abstract"><summary>Read the abstract <span aria-hidden="true">+</span></summary><p>Understanding human dexterity from egocentric videos requires recovering both kinematics and the tactile signals underlying hand–object interactions. EgoFact introduces a unified framework for estimating dense, full-hand tactile fields of both hands. It maps heterogeneous measurements onto a canonical 3D hand surface with spatial decay and propagation, uses a tracker-free vision-to-tactile model with a force-guided learning objective, and introduces EgoFact-Data: 100 hours of cross-device recordings. Evaluation across five egocentric–tactile benchmarks demonstrates improvements in contact and tactile estimation. The estimated fields also support 3D hand–object reconstruction and dexterous skill imitation in simulation.</p></details></div></div>
-      <div class="contributions"><article class="reveal"><span class="mono">01 — REPRESENT</span><h3>One surface.<br>Many sensing devices.</h3><p>A shared 3D tactile field that models spatial force decay and preserves local response peaks.</p></article><article class="reveal"><span class="mono">02 — ESTIMATE</span><h3>From pixels<br>to physical signals.</h3><p>Multi-level visual features predict full-hand touch without an upstream hand-pose tracker.</p></article><article class="reveal"><span class="mono">03 — TRANSFER</span><h3>Beyond the<br>observed interaction.</h3><p>Evaluation on unseen scenes and tasks, with applications in reconstruction and skill learning.</p></article></div>
-    </section>
+      <section id="overview" class="section page-width overview-section">
+        <div class="section-kicker reveal">
+          <span class="eyebrow">01 / OVERVIEW</span
+          ><span class="section-rule"></span>
+        </div>
+        <div class="editorial-grid">
+          <h2 class="reveal">
+            There’s more to<br />an interaction<br />than
+            <em>meets the eye.</em>
+          </h2>
+          <div class="overview-copy reveal">
+            <p class="lead">
+              A video shows how a hand moves. But where does it make contact,
+              and how is force distributed?
+            </p>
+            <p>
+              EgoFact recovers dense tactile fields for both hands directly from
+              egocentric RGB inputs. It connects visible actions with the
+              physical signals at the hand–object interface, even when contact
+              is hidden from view.
+            </p>
+            <p>
+              By mapping different tactile sensors onto one canonical 3D hand
+              surface, we bring heterogeneous devices into a shared
+              representation for learning and evaluation.
+            </p>
+            <details class="abstract">
+              <summary>
+                Read the abstract <span aria-hidden="true">+</span>
+              </summary>
+              <p>
+                Understanding human dexterity from egocentric videos requires
+                recovering both kinematics and the tactile signals underlying
+                hand–object interactions. EgoFact introduces a unified framework
+                for estimating dense, full-hand tactile fields of both hands. It
+                maps heterogeneous measurements onto a canonical 3D hand surface
+                with spatial decay and propagation, uses a tracker-free
+                vision-to-tactile model with a force-guided learning objective,
+                and introduces EgoFact-Data: 100 hours of cross-device
+                recordings. Evaluation across five egocentric–tactile benchmarks
+                demonstrates improvements in contact and tactile estimation. The
+                estimated fields also support 3D hand–object reconstruction and
+                dexterous skill imitation in simulation.
+              </p>
+            </details>
+          </div>
+        </div>
+        <div class="contributions">
+          <article class="reveal">
+            <span class="mono">01 — REPRESENT</span>
+            <h3>One surface.<br />Many sensing devices.</h3>
+            <p>
+              A shared 3D tactile field that models spatial force decay and
+              preserves local response peaks.
+            </p>
+          </article>
+          <article class="reveal">
+            <span class="mono">02 — ESTIMATE</span>
+            <h3>From pixels<br />to physical signals.</h3>
+            <p>
+              Multi-level visual features predict full-hand touch without an
+              upstream hand-pose tracker.
+            </p>
+          </article>
+          <article class="reveal">
+            <span class="mono">03 — TRANSFER</span>
+            <h3>Beyond the<br />observed interaction.</h3>
+            <p>
+              Evaluation on unseen scenes and tasks, with applications in
+              reconstruction and skill learning.
+            </p>
+          </article>
+        </div>
+      </section>
 
-    <section id="method" class="section method-section">
-      <div class="page-width"><div class="section-kicker reveal"><span class="eyebrow">02 / THE METHOD</span><span class="section-rule"></span></div><div class="section-heading reveal"><h2>From vision to touch.</h2><p>A shared representation.<br>A direct path from RGB to tactile fields.</p></div>
-      <div class="method-tabs" role="tablist" aria-label="Explore the method"><button id="tab-model" role="tab" aria-selected="true" aria-controls="panel-model" tabindex="0">01 <span>Vision-to-tactile model</span> <span class="tab-arrow" aria-hidden="true">↗</span></button><button id="tab-representation" role="tab" aria-selected="false" aria-controls="panel-representation" tabindex="-1">02 <span>Unified representation</span> <span class="tab-arrow" aria-hidden="true">↗</span></button></div>
-      <div id="panel-model" role="tabpanel" aria-labelledby="tab-model" tabindex="0"><button class="figure-button" data-lightbox="assets/figures/architecture.webp" data-caption="Figure 3. EgoFact architecture: RGB preprocessing, multi-level tactile feature learning, and tactile decoding." aria-label="Enlarge model architecture figure"><img src="assets/figures/architecture.webp" width="2400" height="761" alt="EgoFact architecture: SAM3 hand crops, DINOv3 layers 8, 16, 24 and 32, multi-level feature fusion, and a tactile decoder" loading="lazy"><span class="expand-label">VIEW FIGURE ↗</span></button><div class="method-notes"><div><span class="mono">INPUT</span><p>Egocentric RGB images, with hand regions localized using SAM3.</p></div><div><span class="mono">FEATURES</span><p>DINOv3 features from four levels, fused through learned residual updates.</p></div><div><span class="mono">OUTPUT</span><p>Dense full-hand tactile fields, trained with a force-guided objective.</p></div></div></div>
-      <div id="panel-representation" role="tabpanel" aria-labelledby="tab-representation" tabindex="0" hidden><button class="figure-button" data-lightbox="assets/figures/representation.webp" data-caption="Figure 2. Heterogeneous sensors are mapped onto a canonical 3D hand surface using geodesic Gaussian kernels and upper-envelope aggregation." aria-label="Enlarge unified tactile representation figure"><img src="assets/figures/representation.webp" width="2400" height="668" alt="Canonical hand template, sensor-to-surface mappings, geodesic Gaussian kernels, and the resulting dense tactile field" loading="lazy"><span class="expand-label">VIEW FIGURE ↗</span></button><div class="method-notes"><div><span class="mono">ALIGN</span><p>Map each device’s tactile sensors onto a canonical MANO hand surface.</p></div><div><span class="mono">PROPAGATE</span><p>Geodesic Gaussian kernels model force decay along the connected surface.</p></div><div><span class="mono">AGGREGATE</span><p>The upper envelope retains the strongest sensor response at each vertex.</p></div></div></div>
-      </div>
-    </section>
+      <section id="method" class="section method-section">
+        <div class="page-width">
+          <div class="section-kicker reveal">
+            <span class="eyebrow">02 / THE METHOD</span
+            ><span class="section-rule"></span>
+          </div>
+          <div class="section-heading reveal">
+            <h2>From vision to touch.</h2>
+            <p>
+              A shared representation.<br />A direct path from RGB to tactile
+              fields.
+            </p>
+          </div>
+          <div
+            class="method-tabs"
+            role="tablist"
+            aria-label="Explore the method"
+          >
+            <button
+              id="tab-model"
+              role="tab"
+              aria-selected="true"
+              aria-controls="panel-model"
+              tabindex="0"
+            >
+              01 <span>Vision-to-tactile model</span>
+              <span class="tab-arrow" aria-hidden="true">↗</span></button
+            ><button
+              id="tab-representation"
+              role="tab"
+              aria-selected="false"
+              aria-controls="panel-representation"
+              tabindex="-1"
+            >
+              02 <span>Unified representation</span>
+              <span class="tab-arrow" aria-hidden="true">↗</span>
+            </button>
+          </div>
+          <div
+            id="panel-model"
+            role="tabpanel"
+            aria-labelledby="tab-model"
+            tabindex="0"
+          >
+            <button
+              class="figure-button"
+              data-lightbox="assets/figures/architecture.webp"
+              data-caption="Figure 3. EgoFact architecture: RGB preprocessing, multi-level tactile feature learning, and tactile decoding."
+              aria-label="Enlarge model architecture figure"
+            >
+              <img
+                src="assets/figures/architecture.webp"
+                width="2400"
+                height="761"
+                alt="EgoFact architecture: SAM3 hand crops, DINOv3 layers 8, 16, 24 and 32, multi-level feature fusion, and a tactile decoder"
+                loading="lazy"
+              /><span class="expand-label">VIEW FIGURE ↗</span>
+            </button>
+            <div class="method-notes">
+              <div>
+                <span class="mono">INPUT</span>
+                <p>
+                  Egocentric RGB images, with hand regions localized using SAM3.
+                </p>
+              </div>
+              <div>
+                <span class="mono">FEATURES</span>
+                <p>
+                  DINOv3 features from four levels, fused through learned
+                  residual updates.
+                </p>
+              </div>
+              <div>
+                <span class="mono">OUTPUT</span>
+                <p>
+                  Dense full-hand tactile fields, trained with a force-guided
+                  objective.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div
+            id="panel-representation"
+            role="tabpanel"
+            aria-labelledby="tab-representation"
+            tabindex="0"
+            hidden
+          >
+            <button
+              class="figure-button"
+              data-lightbox="assets/figures/representation.webp"
+              data-caption="Figure 2. Heterogeneous sensors are mapped onto a canonical 3D hand surface using geodesic Gaussian kernels and upper-envelope aggregation."
+              aria-label="Enlarge unified tactile representation figure"
+            >
+              <img
+                src="assets/figures/representation.webp"
+                width="2400"
+                height="668"
+                alt="Canonical hand template, sensor-to-surface mappings, geodesic Gaussian kernels, and the resulting dense tactile field"
+                loading="lazy"
+              /><span class="expand-label">VIEW FIGURE ↗</span>
+            </button>
+            <div class="method-notes">
+              <div>
+                <span class="mono">ALIGN</span>
+                <p>
+                  Map each device’s tactile sensors onto a canonical MANO hand
+                  surface.
+                </p>
+              </div>
+              <div>
+                <span class="mono">PROPAGATE</span>
+                <p>
+                  Geodesic Gaussian kernels model force decay along the
+                  connected surface.
+                </p>
+              </div>
+              <div>
+                <span class="mono">AGGREGATE</span>
+                <p>
+                  The upper envelope retains the strongest sensor response at
+                  each vertex.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-    <section id="dataset" class="section page-width dataset-section"><div class="section-kicker reveal"><span class="eyebrow">03 / EGOFACT-DATA</span><span class="section-rule"></span></div><div class="section-heading reveal"><h2>Real hands.<br>Real-world diversity.</h2><p>A cross-device egocentric–tactile dataset<br>for learning the physical side of interaction.</p></div><div class="dataset-stats"><div class="stat reveal"><strong>100<span>h</span></strong><span>of recordings</span></div><div class="stat reveal"><strong>800</strong><span>recorded clips</span></div><div class="stat reveal"><strong>200</strong><span>manipulation tasks</span></div><div class="stat reveal"><strong>3<span> / </span>6</strong><span>glove types / scenes</span></div></div><div class="dataset-bottom"><div class="reveal"><h3>Different sensors. Shared understanding.</h3><p>JQ-Glove, Wuji-Glove, and Matrix-Glove capture both hands, alongside stereo egocentric video and eight exocentric views. Scene-held-out and task-held-out protocols evaluate generalization beyond the training set.</p></div><div class="dataset-tags reveal"><span>Bimanual touch</span><span>Stereo egocentric video</span><span>8 exocentric views</span><span>Unseen scenes & tasks</span></div></div><div class="release-note"><span class="status-dot hollow"></span> Dataset download <span class="muted">— release link to be added</span></div></section>
+      <section id="dataset" class="section page-width dataset-section">
+        <div class="section-kicker reveal">
+          <span class="eyebrow">03 / EGOFACT-DATA</span
+          ><span class="section-rule"></span>
+        </div>
+        <div class="section-heading reveal">
+          <h2>Real hands.<br />Real-world diversity.</h2>
+          <p>
+            A cross-device egocentric–tactile dataset<br />for learning the
+            physical side of interaction.
+          </p>
+        </div>
+        <div class="dataset-stats">
+          <div class="stat reveal">
+            <strong>100<span>h</span></strong
+            ><span>of recordings</span>
+          </div>
+          <div class="stat reveal">
+            <strong>800</strong><span>recorded clips</span>
+          </div>
+          <div class="stat reveal">
+            <strong>200</strong><span>manipulation tasks</span>
+          </div>
+          <div class="stat reveal">
+            <strong>3<span> / </span>6</strong><span>glove types / scenes</span>
+          </div>
+        </div>
+        <div class="dataset-bottom">
+          <div class="reveal">
+            <h3>Different sensors. Shared understanding.</h3>
+            <p>
+              JQ-Glove, Wuji-Glove, and Matrix-Glove capture both hands,
+              alongside stereo egocentric video and eight exocentric views.
+              Scene-held-out and task-held-out protocols evaluate generalization
+              beyond the training set.
+            </p>
+          </div>
+          <div class="dataset-tags reveal">
+            <span>Bimanual touch</span><span>Stereo egocentric video</span
+            ><span>8 exocentric views</span><span>Unseen scenes & tasks</span>
+          </div>
+        </div>
+        <div class="release-note">
+          <span class="status-dot hollow"></span> Dataset download
+          <span class="muted">— release link to be added</span>
+        </div>
+      </section>
 
-    <section id="results" class="section page-width results-section"><div class="section-kicker reveal"><span class="eyebrow">04 / RESULTS</span><span class="section-rule"></span></div><div class="section-heading reveal"><h2>Making touch visible.</h2><p>Evaluated across five tactile benchmarks<br>and unconstrained, in-the-wild examples.</p></div><button class="figure-button results-figure reveal" data-lightbox="assets/figures/comparisons.webp" data-caption="Figure 4. Qualitative comparisons across OpenTouch, EgoTouch, EgoTactile, EgoFact-Data, HumanTouch, and in-the-wild examples." aria-label="Enlarge qualitative comparison figure"><img src="assets/figures/comparisons.webp" width="2400" height="1377" alt="Qualitative tactile field comparisons across five benchmarks and in-the-wild inputs, with predictions and ground truth" loading="lazy"><span class="expand-label">EXPLORE FULL FIGURE ↗</span></button>
-      <div class="results-data"><div><span class="eyebrow">QUANTITATIVE COMPARISON</span><h3>Measured on<br>a common surface.</h3><p>Reported values from Table 2.<br>Accuracy and IoU in %; MAE in N.</p><label class="select-label" for="benchmark-select">Evaluation track</label><select id="benchmark-select"><option value="opentouch">OpenTouch · video-to-tactile</option><option value="egotouch-seen">EgoTouch · seen objects</option><option value="egotouch-unseen">EgoTouch · unseen objects</option><option value="egotactile-object">EgoTactile · object track</option><option value="egotactile-subject">EgoTactile · subject track</option></select></div><div class="table-wrap" tabindex="0" role="region" aria-label="Benchmark results table"><table><caption id="benchmark-caption">OpenTouch · video-to-tactile</caption><thead><tr><th scope="col">Method</th><th scope="col">Accuracy ↑</th><th scope="col">C-IoU ↑</th><th scope="col">V-IoU ↑</th><th scope="col">MAE ↓</th></tr></thead><tbody id="benchmark-body"><tr><th scope="row">OpenTouch</th><td>55.61</td><td>33.60</td><td>28.33</td><td>0.1995</td></tr><tr class="ours"><th scope="row">EgoFact <span>OURS</span></th><td><strong>82.40</strong></td><td><strong>53.15</strong></td><td><strong>48.09</strong></td><td><strong>0.1442</strong></td></tr></tbody></table><p class="table-note">All methods are evaluated on the unified tactile representation. Bold denotes the better value within the selected comparison.</p><p id="benchmark-announcement" class="sr-only" aria-live="polite"></p></div></div>
-    </section>
+      <section id="results" class="section page-width results-section">
+        <div class="section-kicker reveal">
+          <span class="eyebrow">04 / RESULTS</span
+          ><span class="section-rule"></span>
+        </div>
+        <div class="section-heading reveal">
+          <h2>Making touch visible.</h2>
+          <p>
+            Evaluated across five tactile benchmarks<br />and unconstrained,
+            in-the-wild examples.
+          </p>
+        </div>
+        <button
+          class="figure-button results-figure reveal"
+          data-lightbox="assets/figures/comparisons.webp"
+          data-caption="Figure 4. Qualitative comparisons across OpenTouch, EgoTouch, EgoTactile, EgoFact-Data, HumanTouch, and in-the-wild examples."
+          aria-label="Enlarge qualitative comparison figure"
+        >
+          <img
+            src="assets/figures/comparisons.webp"
+            width="2400"
+            height="1377"
+            alt="Qualitative tactile field comparisons across five benchmarks and in-the-wild inputs, with predictions and ground truth"
+            loading="lazy"
+          /><span class="expand-label">EXPLORE FULL FIGURE ↗</span>
+        </button>
+        <div class="results-data">
+          <div>
+            <span class="eyebrow">QUANTITATIVE COMPARISON</span>
+            <h3>Measured on<br />a common surface.</h3>
+            <p>
+              Reported values from Table 2.<br />Accuracy and IoU in %; MAE in
+              N.
+            </p>
+            <label class="select-label" for="benchmark-select"
+              >Evaluation track</label
+            ><select id="benchmark-select">
+              <option value="opentouch">OpenTouch · video-to-tactile</option>
+              <option value="egotouch-seen">EgoTouch · seen objects</option>
+              <option value="egotouch-unseen">EgoTouch · unseen objects</option>
+              <option value="egotactile-object">
+                EgoTactile · object track
+              </option>
+              <option value="egotactile-subject">
+                EgoTactile · subject track
+              </option>
+            </select>
+          </div>
+          <div
+            class="table-wrap"
+            tabindex="0"
+            role="region"
+            aria-label="Benchmark results table"
+          >
+            <table>
+              <caption id="benchmark-caption">
+                OpenTouch · video-to-tactile
+              </caption>
+              <thead>
+                <tr>
+                  <th scope="col">Method</th>
+                  <th scope="col">Accuracy ↑</th>
+                  <th scope="col">C-IoU ↑</th>
+                  <th scope="col">V-IoU ↑</th>
+                  <th scope="col">MAE ↓</th>
+                </tr>
+              </thead>
+              <tbody id="benchmark-body">
+                <tr>
+                  <th scope="row">OpenTouch</th>
+                  <td>55.61</td>
+                  <td>33.60</td>
+                  <td>28.33</td>
+                  <td>0.1995</td>
+                </tr>
+                <tr class="ours">
+                  <th scope="row">EgoFact <span>OURS</span></th>
+                  <td><strong>82.40</strong></td>
+                  <td><strong>53.15</strong></td>
+                  <td><strong>48.09</strong></td>
+                  <td><strong>0.1442</strong></td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="table-note">
+              All methods are evaluated on the unified tactile representation.
+              Bold denotes the better value within the selected comparison.
+            </p>
+            <p
+              id="benchmark-announcement"
+              class="sr-only"
+              aria-live="polite"
+            ></p>
+          </div>
+        </div>
+      </section>
 
-    <section id="applications" class="section applications-section"><div class="page-width"><div class="section-kicker reveal"><span class="eyebrow">05 / BEYOND ESTIMATION</span><span class="section-rule"></span></div><div class="section-heading reveal"><h2>Touch informs action.</h2><p>Physical cues for reconstruction<br>and dexterous skill learning.</p></div><div class="application-grid"><article class="application-card reveal"><button class="application-image" data-lightbox="assets/figures/reconstruction.webp" data-caption="Figure 5. Estimated tactile cues refine hand–object contact in 3D reconstruction." aria-label="View hand-object reconstruction examples"><img src="assets/figures/cube.webp" width="1360" height="983" alt="A hand holding a Rubik’s cube alongside a tactile field and refined 3D hand-object reconstruction" loading="lazy"><span class="application-number">01</span><span class="application-arrow" aria-hidden="true">↗</span></button><h3>More faithful 3D interactions.</h3><p>Estimated contact and force cues refine coarse hand–object reconstructions, reducing penetration and improving contact alignment.</p><span class="eyebrow">HAND–OBJECT RECONSTRUCTION</span></article><article class="application-card reveal"><button class="application-image imitation-image" data-lightbox="assets/figures/imitation.webp" data-caption="Figure 6. Tactile rewards support dexterous skill imitation in simulation on three DexYCB objects." aria-label="View dexterous imitation results"><img src="assets/figures/imitation.webp" width="2400" height="859" alt="Dexterous imitation of mustard bottle, foam brick and soup can manipulation, with learning curves comparing PPO and tactile-guided PPO" loading="lazy"><span class="application-number">02</span><span class="application-arrow" aria-hidden="true">↗</span></button><h3>Learning with a sense of touch.</h3><p>Tactile rewards complement pose tracking for a simulated Wuji-Hand, improving early learning and final task completion.</p><span class="eyebrow">DEXTEROUS SKILL IMITATION</span></article></div></div></section>
+      <section id="applications" class="section applications-section">
+        <div class="page-width">
+          <div class="section-kicker reveal">
+            <span class="eyebrow">05 / BEYOND ESTIMATION</span
+            ><span class="section-rule"></span>
+          </div>
+          <div class="section-heading reveal">
+            <h2>Touch informs action.</h2>
+            <p>
+              Physical cues for reconstruction<br />and dexterous skill
+              learning.
+            </p>
+          </div>
+          <div class="application-grid">
+            <article class="application-card reveal">
+              <button
+                class="application-image"
+                data-lightbox="assets/figures/reconstruction.webp"
+                data-caption="Figure 5. Estimated tactile cues refine hand–object contact in 3D reconstruction."
+                aria-label="View hand-object reconstruction examples"
+              >
+                <img
+                  src="assets/figures/cube.webp"
+                  width="1360"
+                  height="983"
+                  alt="A hand holding a Rubik’s cube alongside a tactile field and refined 3D hand-object reconstruction"
+                  loading="lazy"
+                /><span class="application-number">01</span
+                ><span class="application-arrow" aria-hidden="true">↗</span>
+              </button>
+              <h3>More faithful 3D interactions.</h3>
+              <p>
+                Estimated contact and force cues refine coarse hand–object
+                reconstructions, reducing penetration and improving contact
+                alignment.
+              </p>
+              <span class="eyebrow">HAND–OBJECT RECONSTRUCTION</span>
+            </article>
+            <article class="application-card reveal">
+              <button
+                class="application-image imitation-image"
+                data-lightbox="assets/figures/imitation.webp"
+                data-caption="Figure 6. Tactile rewards support dexterous skill imitation in simulation on three DexYCB objects."
+                aria-label="View dexterous imitation results"
+              >
+                <img
+                  src="assets/figures/imitation.webp"
+                  width="2400"
+                  height="859"
+                  alt="Dexterous imitation of mustard bottle, foam brick and soup can manipulation, with learning curves comparing PPO and tactile-guided PPO"
+                  loading="lazy"
+                /><span class="application-number">02</span
+                ><span class="application-arrow" aria-hidden="true">↗</span>
+              </button>
+              <h3>Learning with a sense of touch.</h3>
+              <p>
+                Tactile rewards complement pose tracking for a simulated
+                Wuji-Hand, improving early learning and final task completion.
+              </p>
+              <span class="eyebrow">DEXTEROUS SKILL IMITATION</span>
+            </article>
+          </div>
+        </div>
+      </section>
 
-    <section id="resources" class="section page-width resources-section"><div class="section-kicker reveal"><span class="eyebrow">06 / RESOURCES</span><span class="section-rule"></span></div><div class="resource-grid"><div class="reveal"><h2>Explore the work.</h2><p>Paper, project source, and future releases.</p><div class="resource-links"><a id="resource-paper-link" href="#paper-status">Research paper <span id="paper-resource-status">Link coming soon</span><span aria-hidden="true">↗</span></a><a data-repo-link href="https://github.com/TLNA114514/proj_website" target="_blank" rel="noopener noreferrer">Project website source <span>GitHub</span><span aria-hidden="true">↗</span></a><div class="resource-unavailable">Model code & dataset <span>Coming soon</span><span aria-hidden="true">↗</span></div></div><p id="paper-status" class="resource-note">Publication links and author details will be updated when available.</p></div><div class="citation-box reveal"><div><span class="eyebrow">CITATION / PRELIMINARY</span><button id="copy-citation" class="copy-button">Copy BibTeX <span aria-hidden="true">⧉</span></button></div><pre id="citation-text">@unpublished{egofact,
+      <section id="resources" class="section page-width resources-section">
+        <div class="section-kicker reveal">
+          <span class="eyebrow">06 / RESOURCES</span
+          ><span class="section-rule"></span>
+        </div>
+        <div class="resource-grid">
+          <div class="reveal">
+            <h2>Explore the work.</h2>
+            <p>Paper, project source, and future releases.</p>
+            <div class="resource-links">
+              <a id="resource-paper-link" href="#paper-status"
+                >Research paper
+                <span id="paper-resource-status">Link coming soon</span
+                ><span aria-hidden="true">↗</span></a
+              ><a
+                data-repo-link
+                href="https://github.com/TLNA114514/proj_website"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Project website source <span>GitHub</span
+                ><span aria-hidden="true">↗</span></a
+              >
+              <div class="resource-unavailable">
+                Model code & dataset <span>Coming soon</span
+                ><span aria-hidden="true">↗</span>
+              </div>
+            </div>
+            <p id="paper-status" class="resource-note">
+              Publication links and author details will be updated when
+              available.
+            </p>
+          </div>
+          <div class="citation-box reveal">
+            <div>
+              <span class="eyebrow">CITATION / PRELIMINARY</span
+              ><button id="copy-citation" class="copy-button">
+                Copy BibTeX <span aria-hidden="true">⧉</span>
+              </button>
+            </div>
+            <pre id="citation-text">
+@unpublished{egofact,
   title = {EgoFact: Estimating Dense
     Full-Hand Tactile Fields from
     Egocentric Human Videos},
   author = {Anonymous},
   note = {Manuscript under review}
-}</pre><p>Anonymous manuscript. Final citation details to follow.</p><span id="copy-status" class="sr-only" role="status"></span></div></div></section>
-  </main>
-  <footer class="page-width"><div class="footer-statement">From observation<br>to <em>sensation.</em><a href="#" class="back-to-top" aria-label="Back to top">↑</a></div><div class="footer-bottom"><a class="brand" href="#">EgoFact<span class="brand-period">.</span></a><span>Egocentric vision. Physically grounded.</span><a data-repo-link href="https://github.com/TLNA114514/proj_website" target="_blank" rel="noopener noreferrer">Project on GitHub ↗</a></div></footer>
-  <dialog id="figure-dialog" class="figure-dialog" aria-label="Expanded research figure"><button id="close-dialog" class="dialog-close" aria-label="Close expanded figure">Close <span aria-hidden="true">×</span></button><figure><img id="dialog-image" alt=""><figcaption id="dialog-caption"></figcaption></figure></dialog>
-  <noscript><style>.reveal{opacity:1!important;transform:none!important}.method-tabs,.viewer-controls,.segmented,.copy-button,.menu-toggle{display:none!important}</style></noscript>
-</body>
+}</pre>
+            <p>Anonymous manuscript. Final citation details to follow.</p>
+            <span id="copy-status" class="sr-only" role="status"></span>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="page-width">
+      <div class="footer-statement">
+        From observation<br />to <em>sensation.</em
+        ><a href="#" class="back-to-top" aria-label="Back to top">↑</a>
+      </div>
+      <div class="footer-bottom">
+        <a class="brand" href="#">EgoFact<span class="brand-period">.</span></a
+        ><span>Egocentric vision. Physically grounded.</span
+        ><a
+          data-repo-link
+          href="https://github.com/TLNA114514/proj_website"
+          target="_blank"
+          rel="noopener noreferrer"
+          >Project on GitHub ↗</a
+        >
+      </div>
+    </footer>
+    <dialog
+      id="figure-dialog"
+      class="figure-dialog"
+      aria-label="Expanded research figure"
+    >
+      <button
+        id="close-dialog"
+        class="dialog-close"
+        aria-label="Close expanded figure"
+      >
+        Close <span aria-hidden="true">×</span>
+      </button>
+      <figure>
+        <img id="dialog-image" alt="" />
+        <figcaption id="dialog-caption"></figcaption>
+      </figure>
+    </dialog>
+    <noscript
+      ><style>
+        .reveal {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+        .method-tabs,
+        .viewer-controls,
+        .segmented,
+        .copy-button,
+        .menu-toggle {
+          display: none !important;
+        }
+      </style></noscript
+    >
+  </body>
 </html>
