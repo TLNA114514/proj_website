@@ -12,7 +12,7 @@ Open <http://127.0.0.1:8000>.
 
 ## Update content
 
-- `site-config.js`: anonymous author details, affiliations, repository URL, and external paper URL. An empty paper URL produces an explicit “Coming soon” state.
+- `site-config.js`: anonymous author details, affiliations, public website URL (`websiteUrl`), and external paper URL. An empty paper URL produces an explicit “Coming soon” state.
 - `index.html`: narrative sections, dataset statistics, preliminary citation, and resource availability.
 - `app.js`: Figure 1 sample viewer and the five evaluation tracks transcribed from Table 2. Best values are highlighted per metric, including metrics where the baseline is better.
 - `styles.css`: typography, responsive layout, transitions, and reduced-motion support.
@@ -33,7 +33,7 @@ See [GitHub’s publishing-source instructions](https://docs.github.com/en/pages
 - Final author list, affiliations, and personal links.
 - Public paper URL and final BibTeX citation.
 - Teaser and qualitative result videos to replace the labeled still-image preview.
-- Model code and dataset download links. The current GitHub link points to this website’s source, not to an unreleased model implementation.
+- Model code and dataset download links. The page’s project links point to <https://tlna114514.github.io/proj_website/>; model code and dataset links remain pending.
 
 ## Design and provenance
 

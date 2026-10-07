@@ -15,9 +15,9 @@
       return false;
     }
   };
-  if (isWebUrl(config.repositoryUrl)) {
-    qa("[data-repo-link]").forEach((link) => {
-      link.href = config.repositoryUrl;
+  if (isWebUrl(config.websiteUrl)) {
+    qa("[data-website-link]").forEach((link) => {
+      link.href = config.websiteUrl;
     });
   }
   if (isWebUrl(config.paperUrl)) {
