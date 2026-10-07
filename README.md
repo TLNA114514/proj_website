@@ -1,0 +1,42 @@
+# EgoFact project website
+
+A minimal, responsive research project page for **EgoFact: Estimating Dense Full-Hand Tactile Fields from Egocentric Human Videos**. Built with HTML, CSS, and vanilla JavaScript; no build step or third-party runtime dependencies.
+
+## Local preview
+
+```sh
+python3 -m http.server 8000 --bind 127.0.0.1
+```
+
+Open <http://127.0.0.1:8000>.
+
+## Update content
+
+- `site-config.js`: anonymous author details, affiliations, repository URL, and external paper URL. An empty paper URL produces an explicit “Coming soon” state.
+- `index.html`: narrative sections, dataset statistics, preliminary citation, and resource availability.
+- `app.js`: Figure 1 sample viewer and the five evaluation tracks transcribed from Table 2. Best values are highlighted per metric, including metrics where the baseline is better.
+- `styles.css`: typography, responsive layout, transitions, and reduced-motion support.
+- `assets/figures/`: compressed WebP figures extracted from the supplied manuscript. The sample viewer shows actual stills; it is not a live model or a video.
+
+All manuscript PDFs stay outside the published assets and are ignored by Git. Local extraction intermediates are stored under `.work/`, which is also ignored. No manuscript PDF is required to run the website.
+
+## Publish with GitHub Pages
+
+Repository: <https://github.com/TLNA114514/proj_website>
+
+In **Settings → Pages → Build and deployment**, select **Deploy from a branch**, then **main** and **/(root)**, and save. `.nojekyll` enables direct static publishing. The expected project URL is <https://TLNA114514.github.io/proj_website/>.
+
+See [GitHub’s publishing-source instructions](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site). All local asset URLs are relative, so the `/proj_website/` prefix works without a build configuration.
+
+## Assets to add later
+
+- Final author list, affiliations, and personal links.
+- Public paper URL and final BibTeX citation.
+- Teaser and qualitative result videos to replace the labeled still-image preview.
+- Model code and dataset download links. The current GitHub link points to this website’s source, not to an unreleased model implementation.
+
+## Design and provenance
+
+Original implementation inspired by the spacious research storytelling of [World Labs’ Generating Worlds](https://www.worldlabs.ai/blog/generating-worlds), without copying its code or visual assets. All research figures and numerical results come from the user-supplied EgoFact manuscript. Author identity and publication venue are not inferred.
+
+Interactions include sample selection, accessible method tabs, a native figure dialog, benchmark selection, expandable abstract, copyable preliminary citation, mobile navigation, scroll reveals, and a reading progress indicator. Content remains readable without JavaScript.

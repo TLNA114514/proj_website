@@ -1,0 +1,6 @@
+.DS_Store
+.work/
+node_modules/
+*.log
+# Paper manuscripts remain local. Link to the external publication instead.
+*.pdf
