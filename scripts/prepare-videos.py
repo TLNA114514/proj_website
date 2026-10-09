@@ -13,11 +13,11 @@ import subprocess
 
 ROOT = Path(__file__).resolve().parents[1]
 CLIPS = [
-    ('wood', 'Wood carving', 'Both hands', 150),
-    ('bare_01', 'Bare hands · 01', 'Both hands', 94),
-    ('bare_04', 'Bare hands · 04', 'Both hands', 121),
-    ('gloved_08', 'Gloved hands · 08', 'Both hands', 201),
-    ('orange_gloved_02', 'Orange glove · 02', 'Single hand', 201),
+    ('wood', 'demo_1', 'Both hands', 150),
+    ('bare_01', 'demo_2', 'Both hands', 94),
+    ('bare_04', 'demo_3', 'Both hands', 121),
+    ('gloved_08', 'demo_4', 'Both hands', 201),
+    ('orange_gloved_02', 'demo_5', 'Single hand', 201),
 ]
 
 
