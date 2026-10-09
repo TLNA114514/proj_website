@@ -1,0 +1,91 @@
+#!/usr/bin/env python3
+"""Prepare supplied EgoFact clips for the static demo without modifying originals.
+
+Usage: python3 scripts/prepare-videos.py /path/to/Downloads
+Requires ffmpeg on PATH or the Python package imageio-ffmpeg.
+Incomplete source transfers are skipped; rerun after they finish.
+"""
+import argparse
+import json
+from pathlib import Path
+import shutil
+import subprocess
+
+ROOT = Path(__file__).resolve().parents[1]
+CLIPS = [
+    ('wood', 'Wood carving', 'Both hands', 150),
+    ('bare_01', 'Bare hands · 01', 'Both hands', 94),
+    ('bare_04', 'Bare hands · 04', 'Both hands', 121),
+    ('gloved_08', 'Gloved hands · 08', 'Both hands', 201),
+    ('orange_gloved_02', 'Orange glove · 02', 'Single hand', 201),
+]
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('source', type=Path)
+    parser.add_argument('--force', action='store_true')
+    args = parser.parse_args()
+    ffmpeg = shutil.which('ffmpeg')
+    if not ffmpeg:
+        import imageio_ffmpeg
+        ffmpeg = imageio_ffmpeg.get_ffmpeg_exe()
+
+    def run(options):
+        subprocess.run([ffmpeg, '-hide_banner', '-loglevel', 'error', '-nostdin', '-y', *options], check=True)
+
+    def input_args(path):
+        # The native VP9 decoder drops alpha. libvpx preserves the supplied mask.
+        return (['-c:v', 'libvpx-vp9'] if path.suffix == '.webm' else []) + ['-i', str(path)]
+
+    encode = ['-an', '-c:v', 'libx264', '-crf', '21', '-preset', 'medium', '-pix_fmt', 'yuv420p', '-movflags', '+faststart']
+    catalog = []
+    for clip_id, label, hands, frames in CLIPS:
+        source = args.source / clip_id
+        out = ROOT / 'assets/videos' / clip_id
+        out.mkdir(parents=True, exist_ok=True)
+        if clip_id == 'wood':
+            rgb = source / 'wood_middle5s_crop.mp4'
+            tracks = {kind: [source / f'query_1_left_{kind}_middle5s.webm', source / f'query_2_right_{kind}_middle5s.webm'] for kind in ('tactile', 'contact')}
+            expected = {}
+        else:
+            rgb = source / 'videos' / f'{clip_id}_RGB_h264.mp4'
+            sides = [''] if clip_id == 'orange_gloved_02' else ['left_', 'right_']
+            tracks = {kind: [source / 'videos' / f'{clip_id}_OURS_{side}{kind}_alpha.mov' for side in sides] for kind in ('tactile', 'contact')}
+            manifest = source / 'manifest.json'
+            expected = json.loads(manifest.read_text())['clips'][0]['videos'] if manifest.exists() else {}
+        files = [rgb, *tracks['tactile'], *tracks['contact']]
+        complete = all(p.exists() and p.stat().st_size > 0 and (p.name not in expected or p.stat().st_size == expected[p.name]['bytes']) for p in files)
+        receipt = out / 'source.json'
+        signature = {p.name: p.stat().st_size for p in files if p.exists()}
+        prepared = receipt.exists() and json.loads(receipt.read_text()) == signature and all((out / f'{kind}.{ext}').exists() for kind in ('rgb', 'tactile', 'contact') for ext in ('mp4', 'webp'))
+        if complete and (not prepared or args.force):
+            print(f'Preparing {clip_id}', flush=True)
+            for p in files:
+                run(['-xerror', *input_args(p), '-map', '0:v:0', '-f', 'null', '-'])
+            run([*input_args(rgb), '-vf', 'scale=960:-2,setsar=1', '-frames:v', str(frames), *encode, str(out / 'rgb.mp4')])
+            for kind, paths in tracks.items():
+                inputs = []
+                filters = []
+                for i, p in enumerate(paths):
+                    inputs += input_args(p)
+                    filters += [f'[{i}:v]scale=512:512,setsar=1,format=rgba[hand{i}]', f'color=c=white:s=512x512:r=30[bg{i}]', f'[bg{i}][hand{i}]overlay=shortest=1:format=auto[flat{i}]']
+                if len(paths) == 2:
+                    filters += ['[flat0][flat1]hstack=inputs=2,pad=1024:576:0:32:white,format=yuv420p[result]']
+                else:
+                    filters += ['[flat0]pad=1024:576:256:32:white,format=yuv420p[result]']
+                run([*inputs, '-filter_complex', ';'.join(filters), '-map', '[result]', '-frames:v', str(frames), *encode, str(out / f'{kind}.mp4')])
+            for kind in ('rgb', 'tactile', 'contact'):
+                run(['-i', str(out / f'{kind}.mp4'), '-frames:v', '1', '-vf', 'scale=640:-2', '-c:v', 'libwebp', '-quality', '85', str(out / f'{kind}.webp')])
+                run(['-xerror', '-i', str(out / f'{kind}.mp4'), '-f', 'null', '-'])
+            receipt.write_text(json.dumps(signature, indent=2) + '\n')
+            prepared = True
+        ready = bool(complete and prepared)
+        if not ready:
+            print(f'Skipping {clip_id}: source transfer is incomplete', flush=True)
+        catalog.append({'id': clip_id, 'label': label, 'hands': hands, 'fps': 30, 'frames': frames, 'duration': frames / 30, 'ready': ready, 'base': f'assets/videos/{clip_id}/' if ready else None})
+    (ROOT / 'video-clips.js').write_text('// Generated by scripts/prepare-videos.py. Source videos remain untouched.\nwindow.EGOFACT_CLIPS = ' + json.dumps(catalog, indent=2) + ';\n')
+
+
+if __name__ == '__main__':
+    main()

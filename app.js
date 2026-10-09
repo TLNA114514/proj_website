@@ -126,10 +126,11 @@
     can: "a hand manipulating a can",
   };
   let scene = "controller";
-  let sample = 2;
+  const selectedSamples = { controller: 2, can: 2 };
   const slider = q("#sample-slider");
   function setSample(next) {
-    sample = Math.max(1, Math.min(3, next));
+    const sample = Math.max(1, Math.min(3, next));
+    selectedSamples[scene] = sample;
     q("#rgb-image").src = `assets/figures/${scene}-${sample}-rgb.webp`;
     q("#rgb-image").alt =
       `First-person view of ${descriptions[scene]}, sample ${sample}`;
@@ -147,15 +148,15 @@
         item.classList.toggle("active", item === button);
         item.setAttribute("aria-pressed", String(item === button));
       });
-      setSample(sample);
+      setSample(selectedSamples[scene]);
     });
   });
   slider.addEventListener("input", () => setSample(Number(slider.value)));
   q("#previous-sample").addEventListener("click", () =>
-    setSample(sample === 1 ? 3 : sample - 1),
+    setSample(selectedSamples[scene] === 1 ? 3 : selectedSamples[scene] - 1),
   );
   q("#next-sample").addEventListener("click", () =>
-    setSample(sample === 3 ? 1 : sample + 1),
+    setSample(selectedSamples[scene] === 3 ? 1 : selectedSamples[scene] + 1),
   );
 
   const tabs = qa('[role="tab"]');

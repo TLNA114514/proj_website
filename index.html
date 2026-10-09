@@ -23,6 +23,8 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="site-config.js" defer></script>
     <script src="app.js" defer></script>
+    <script src="video-clips.js" defer></script>
+    <script src="demo.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -36,8 +38,9 @@
         ><span>EgoFact</span></a
       >
       <nav class="desktop-nav" aria-label="Main navigation">
-        <a href="#overview">Overview</a><a href="#method">Method</a
-        ><a href="#dataset">Dataset</a><a href="#results">Results</a>
+        <a href="#demo">Demo</a><a href="#overview">Overview</a
+        ><a href="#method">Method</a><a href="#dataset">Dataset</a
+        ><a href="#results">Results</a>
       </nav>
       <a
         class="header-link"
@@ -62,9 +65,9 @@
       aria-label="Mobile navigation"
       hidden
     >
-      <a href="#overview">Overview</a><a href="#method">Method</a
-      ><a href="#dataset">Dataset</a><a href="#results">Results</a
-      ><a href="#resources">Resources</a>
+      <a href="#demo">Demo</a><a href="#overview">Overview</a
+      ><a href="#method">Method</a><a href="#dataset">Dataset</a
+      ><a href="#results">Results</a><a href="#resources">Resources</a>
     </nav>
     <main id="main">
       <section class="hero page-width" aria-labelledby="hero-title">
@@ -72,7 +75,7 @@
           <span class="eyebrow"
             ><span class="status-dot"></span> EGOCENTRIC VISION → FULL-HAND
             TOUCH</span
-          ><span class="eyebrow hero-index">RESEARCH PROJECT / 01</span>
+          >
         </div>
         <div class="hero-wordmark" aria-hidden="true">
           EgoFact<span class="wordmark-dot">.</span
@@ -121,11 +124,147 @@
           <div class="hero-actions">
             <a class="button button-dark" id="paper-link" href="#resources"
               >Read the paper <span aria-hidden="true">↗</span></a
-            ><a class="button button-outline" href="#explore"
+            ><a class="button button-outline" href="#demo"
               >Explore results <span aria-hidden="true">↓</span></a
             >
           </div>
         </div>
+      </section>
+
+      <section
+        id="demo"
+        class="video-demo page-width reveal"
+        aria-labelledby="demo-title"
+      >
+        <div class="demo-heading">
+          <div>
+            <span class="eyebrow">EGOFACT IN MOTION</span>
+            <h2 id="demo-title">Watch touch <em>unfold.</em></h2>
+          </div>
+          <p>
+            Choose an interaction. Explore the tactile field<br
+              class="desktop-break"
+            />
+            and contact, moment by moment.
+          </p>
+        </div>
+        <div class="clip-picker">
+          <button
+            class="icon-button"
+            id="clip-previous"
+            aria-label="Scroll to previous videos"
+          >
+            ←
+          </button>
+          <div
+            class="clip-strip"
+            id="clip-strip"
+            role="group"
+            aria-label="Choose input video"
+          ></div>
+          <button
+            class="icon-button"
+            id="clip-next"
+            aria-label="Scroll to next videos"
+          >
+            →
+          </button>
+        </div>
+        <div class="demo-stage" id="demo-stage" aria-busy="true">
+          <figure class="demo-panel demo-input">
+            <figcaption>
+              <span>Input video</span
+              ><span class="eyebrow">EGOCENTRIC RGB</span>
+            </figcaption>
+            <div class="demo-media" data-video-slot="rgb">
+              <video
+                muted
+                playsinline
+                preload="metadata"
+                poster="assets/videos/wood/rgb.webp"
+                aria-label="Wood carving input video"
+              ></video>
+            </div>
+          </figure>
+          <figure class="demo-panel">
+            <figcaption>
+              <span>Tactile</span><span class="eyebrow">EGOFACT</span>
+            </figcaption>
+            <div class="demo-media" data-video-slot="tactile">
+              <video
+                muted
+                playsinline
+                preload="metadata"
+                poster="assets/videos/wood/tactile.webp"
+                aria-label="Wood carving tactile prediction"
+              ></video>
+            </div>
+            <div class="demo-hands" data-hand-labels>
+              <span>Left hand</span><span>Right hand</span>
+            </div>
+          </figure>
+          <figure class="demo-panel">
+            <figcaption>
+              <span>Contact</span><span class="eyebrow">EGOFACT</span>
+            </figcaption>
+            <div class="demo-media" data-video-slot="contact">
+              <video
+                muted
+                playsinline
+                preload="metadata"
+                poster="assets/videos/wood/contact.webp"
+                aria-label="Wood carving contact prediction"
+              ></video>
+            </div>
+            <div class="demo-hands" data-hand-labels>
+              <span>Left hand</span><span>Right hand</span>
+            </div>
+          </figure>
+        </div>
+        <div class="demo-controls">
+          <button
+            id="demo-play"
+            class="demo-play"
+            aria-label="Play all videos"
+            disabled
+          >
+            <span data-play-icon aria-hidden="true">▶</span
+            ><span data-play-text>Play</span>
+          </button>
+          <input
+            id="demo-timeline"
+            type="range"
+            min="0"
+            max="5"
+            step="0.0333333333"
+            value="0"
+            aria-label="Video timeline"
+            aria-valuetext="0.00 of 5.00 seconds"
+            disabled
+          />
+          <output id="demo-time" class="mono" for="demo-timeline"
+            >0.00 / 5.00 s</output
+          >
+          <label class="demo-speed"
+            ><span class="sr-only">Playback speed</span
+            ><select id="demo-speed" aria-label="Playback speed">
+              <option value="0.5">0.5×</option>
+              <option value="1" selected>1×</option>
+              <option value="2">2×</option>
+            </select></label
+          >
+        </div>
+        <div class="demo-footnote">
+          <span id="demo-current">Wood carving</span
+          ><span id="demo-status" role="status">Loading videos…</span>
+        </div>
+        <noscript
+          ><p>
+            Enable JavaScript to choose a video and play the three views
+            together.
+            <a href="assets/videos/wood/rgb.mp4">Watch the input video ↗</a>
+          </p></noscript
+        >
       </section>
 
       <section
@@ -145,12 +284,11 @@
               Object manipulation
             </button>
           </div>
-          <span class="eyebrow sample-label">FIG. 01 / PAPER SAMPLES</span>
         </div>
         <div class="viewer" id="sample-viewer">
           <div class="view-panel rgb-panel">
             <span class="panel-label"
-              ><span class="tiny-dot"></span> 01 / EGOCENTRIC RGB</span
+              ><span class="tiny-dot"></span> EGOCENTRIC RGB</span
             ><img
               id="rgb-image"
               src="assets/figures/controller-2-rgb.webp"
@@ -164,7 +302,7 @@
           </div>
           <div class="view-arrow" aria-hidden="true">↗</div>
           <div class="view-panel tactile-panel">
-            <span class="panel-label">02 / TACTILE FIELD + CONTACT</span
+            <span class="panel-label">TACTILE FIELD + CONTACT</span
             ><img
               id="tactile-image"
               src="assets/figures/controller-2-tactile.webp"
@@ -209,15 +347,13 @@
               step="1"
               aria-label="Sample from the paper"
               aria-valuetext="Sample 2 of 3" /></label
-          ><span class="sample-note"
-            >Still images from the paper · video coming soon</span
-          >
+          ><span class="sample-note">Drag to explore</span>
         </div>
       </section>
 
       <section id="overview" class="section page-width overview-section">
         <div class="section-kicker reveal">
-          <span class="eyebrow">01 / OVERVIEW</span
+          <span class="eyebrow">OVERVIEW</span
           ><span class="section-rule"></span>
         </div>
         <div class="editorial-grid">
@@ -293,7 +429,7 @@
       <section id="method" class="section method-section">
         <div class="page-width">
           <div class="section-kicker reveal">
-            <span class="eyebrow">02 / THE METHOD</span
+            <span class="eyebrow">THE METHOD</span
             ><span class="section-rule"></span>
           </div>
           <div class="section-heading reveal">
@@ -421,7 +557,7 @@
 
       <section id="dataset" class="section page-width dataset-section">
         <div class="section-kicker reveal">
-          <span class="eyebrow">03 / EGOFACT-DATA</span
+          <span class="eyebrow">EGOFACT-DATA</span
           ><span class="section-rule"></span>
         </div>
         <div class="section-heading reveal">
@@ -469,8 +605,7 @@
 
       <section id="results" class="section page-width results-section">
         <div class="section-kicker reveal">
-          <span class="eyebrow">04 / RESULTS</span
-          ><span class="section-rule"></span>
+          <span class="eyebrow">RESULTS</span><span class="section-rule"></span>
         </div>
         <div class="section-heading reveal">
           <h2>Making touch visible.</h2>
@@ -567,7 +702,7 @@
       <section id="applications" class="section applications-section">
         <div class="page-width">
           <div class="section-kicker reveal">
-            <span class="eyebrow">05 / BEYOND ESTIMATION</span
+            <span class="eyebrow">BEYOND ESTIMATION</span
             ><span class="section-rule"></span>
           </div>
           <div class="section-heading reveal">
@@ -631,7 +766,7 @@
 
       <section id="resources" class="section page-width resources-section">
         <div class="section-kicker reveal">
-          <span class="eyebrow">06 / RESOURCES</span
+          <span class="eyebrow">RESOURCES</span
           ><span class="section-rule"></span>
         </div>
         <div class="resource-grid">
