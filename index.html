@@ -177,13 +177,13 @@
               ><span class="eyebrow">EGOCENTRIC RGB</span>
             </figcaption>
             <div class="demo-media" data-video-slot="rgb">
-              <video
-                muted
-                playsinline
-                preload="metadata"
-                poster="assets/videos/wood/rgb.webp"
-                aria-label="demo_1 input video"
-              ></video>
+              <img
+                class="demo-fallback"
+                src="assets/videos/wood/rgb.webp"
+                alt=""
+                width="640"
+                height="360"
+              />
             </div>
           </figure>
           <figure class="demo-panel">
@@ -191,13 +191,13 @@
               <span>Tactile</span><span class="eyebrow">EGOFACT</span>
             </figcaption>
             <div class="demo-media" data-video-slot="tactile">
-              <video
-                muted
-                playsinline
-                preload="metadata"
-                poster="assets/videos/wood/tactile.webp"
-                aria-label="demo_1 tactile prediction"
-              ></video>
+              <img
+                class="demo-fallback"
+                src="assets/videos/wood/tactile.webp"
+                alt=""
+                width="640"
+                height="360"
+              />
             </div>
             <div class="demo-hands" data-hand-labels>
               <span>Left hand</span><span>Right hand</span>
@@ -208,13 +208,13 @@
               <span>Contact</span><span class="eyebrow">EGOFACT</span>
             </figcaption>
             <div class="demo-media" data-video-slot="contact">
-              <video
-                muted
-                playsinline
-                preload="metadata"
-                poster="assets/videos/wood/contact.webp"
-                aria-label="demo_1 contact prediction"
-              ></video>
+              <img
+                class="demo-fallback"
+                src="assets/videos/wood/contact.webp"
+                alt=""
+                width="640"
+                height="360"
+              />
             </div>
             <div class="demo-hands" data-hand-labels>
               <span>Left hand</span><span>Right hand</span>
@@ -291,7 +291,7 @@
               ><span class="tiny-dot"></span> EGOCENTRIC RGB</span
             ><img
               id="rgb-image"
-              src="assets/figures/controller-2-rgb.webp"
+              src="assets/figures/controller-1-rgb.webp"
               width="608"
               height="341"
               alt="First-person view of both hands interacting with a game controller"
@@ -305,7 +305,7 @@
             <span class="panel-label">TACTILE FIELD + CONTACT</span
             ><img
               id="tactile-image"
-              src="assets/figures/controller-2-tactile.webp"
+              src="assets/figures/controller-1-tactile.webp"
               width="608"
               height="345"
               alt="EgoFact tactile field and contact map for the controller interaction"
@@ -327,7 +327,7 @@
             >
               ←</button
             ><span class="mono" id="sample-counter" aria-live="polite"
-              >02 / 03</span
+              >01 / 03</span
             ><button
               id="next-sample"
               class="icon-button"
@@ -343,10 +343,10 @@
               type="range"
               min="1"
               max="3"
-              value="2"
+              value="1"
               step="1"
               aria-label="Sample from the paper"
-              aria-valuetext="Sample 2 of 3" /></label
+              aria-valuetext="Sample 1 of 3" /></label
           ><span class="sample-note">Drag to explore</span>
         </div>
       </section>

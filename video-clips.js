@@ -8,6 +8,7 @@ window.EGOFACT_CLIPS = [
     frames: 150,
     duration: 5.0,
     ready: true,
+    playbackSuffix: "-preview",
     base: "assets/videos/wood/",
   },
   {
@@ -18,6 +19,7 @@ window.EGOFACT_CLIPS = [
     frames: 94,
     duration: 3.1333333333333333,
     ready: true,
+    playbackSuffix: "-preview",
     base: "assets/videos/bare_01/",
   },
   {
@@ -28,6 +30,7 @@ window.EGOFACT_CLIPS = [
     frames: 121,
     duration: 4.033333333333333,
     ready: true,
+    playbackSuffix: "-preview",
     base: "assets/videos/bare_04/",
   },
   {
@@ -38,6 +41,7 @@ window.EGOFACT_CLIPS = [
     frames: 201,
     duration: 6.7,
     ready: true,
+    playbackSuffix: "-preview",
     base: "assets/videos/gloved_08/",
   },
   {
@@ -48,6 +52,7 @@ window.EGOFACT_CLIPS = [
     frames: 201,
     duration: 6.7,
     ready: true,
+    playbackSuffix: "-preview",
     base: "assets/videos/orange_gloved_02/",
   },
 ];

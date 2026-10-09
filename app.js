@@ -126,7 +126,7 @@
     can: "a hand manipulating a can",
   };
   let scene = "controller";
-  const selectedSamples = { controller: 2, can: 2 };
+  const selectedSamples = { controller: 1, can: 1 };
   const slider = q("#sample-slider");
   function setSample(next) {
     const sample = Math.max(1, Math.min(3, next));

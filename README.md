@@ -43,19 +43,23 @@ Interactions include sample selection, accessible method tabs, a native figure d
 
 ## Video demo
 
-The gallery follows the input-selection and shared-timeline pattern of [FlowHMR](https://flowhmr.github.io/). Choose a thumbnail, play/pause the three views together, scrub at 30 fps, or change playback speed. Clips loop together. Switching a clip resets its timeline and pauses playback; switching image categories preserves each category’s selected image independently.
+The gallery follows the input-selection and shared-timeline pattern of [FlowHMR](https://flowhmr.github.io/). Choose a thumbnail, play/pause the three views together, scrub at 30 fps, or change playback speed. Clips loop together. Switching a clip resets its timeline while preserving whether playback is active; switching image categories preserves each category’s selected image independently.
 
-`assets/videos/` contains compressed, silent H.264 MP4s and WebP posters. Each output combines the available left/right hand renders on white, preserving the supplied alpha masks. Single-hand samples show one hand. These are precomputed results from the supplied clips.
+`assets/videos/` contains compressed, silent H.264 MP4s and WebP posters. Playback uses 768-pixel-wide `*-preview.mp4` variants (30 fps, one-second keyframes, fast-start headers); the earlier MP4s remain intact. These playback variants total about 4.24 MB, compared with about 10.4 MB for the earlier tracks. Each output combines the available left/right hand renders on white, preserving the supplied alpha masks. Single-hand samples show one hand. These are precomputed results from the supplied clips.
 
 To add clips after downloading their originals:
 
 ```sh
 python3 -m pip install imageio-ffmpeg
 python3 scripts/prepare-videos.py /path/to/Downloads
+python3 scripts/prepare-preview-videos.py
+python3 scripts/prepare-videos.py /path/to/Downloads
 ```
 
-The script supports the five supplied folders: `wood`, `bare_01`, `bare_04`, `gloved_08`, and `orange_gloved_02`. It checks file sizes against each export manifest, fully decodes complete source videos, converts them, and updates `video-clips.js`. Incomplete transfers are skipped and appear as disabled “Video coming soon” cards. Already prepared clips are reused; `--force` rebuilds them. Original files are never modified or deleted. Commit updated `assets/videos/` and `video-clips.js` to publish the new clips.
+The final preparation pass refreshes the catalog to use the new preview files. The script supports the five supplied folders: `wood`, `bare_01`, `bare_04`, `gloved_08`, and `orange_gloved_02`. It checks file sizes against each export manifest, fully decodes complete source videos, converts them, and updates `video-clips.js`. Incomplete transfers are skipped and appear as disabled “Video coming soon” cards. Already prepared clips are reused; `--force` rebuilds them. Original files are never modified or deleted. Commit updated `assets/videos/` and `video-clips.js` to publish the new clips.
 
 All five supplied clips are available, displayed as `demo_1` through `demo_5` in this order: `wood`, `bare_01`, `bare_04`, `gloved_08`, and `orange_gloved_02`. Every prepared track has been fully decoded and verified against the expected frame count.
 
 Player state regression checks (Node.js 18+): `node --test tests/demo.test.cjs`.
+
+The player keeps up to three recent clips in memory. Hover/focus prepares a requested clip; the next clip is preloaded after the current one finishes buffering. Speculative video loading is disabled when the browser reports data saving or a slow connection. Video layers crossfade over the previous frame, with posters covering unfinished loads. Reduced-motion preferences disable the transitions. Both still-image categories start at sample 1 and preserve their page independently.
