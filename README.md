@@ -57,6 +57,6 @@ python3 scripts/prepare-videos.py /path/to/Downloads
 
 The script supports the five supplied folders: `wood`, `bare_01`, `bare_04`, `gloved_08`, and `orange_gloved_02`. It checks file sizes against each export manifest, fully decodes complete source videos, converts them, and updates `video-clips.js`. Incomplete transfers are skipped and appear as disabled “Video coming soon” cards. Already prepared clips are reused; `--force` rebuilds them. Original files are never modified or deleted. Commit updated `assets/videos/` and `video-clips.js` to publish the new clips.
 
-Current asset availability: `wood` is ready; the other four source transfers were incomplete when this version was prepared.
+Current asset availability: `wood` and `bare_01` are ready. `bare_04`, `gloved_08`, and `orange_gloved_02` still contain incomplete MOV files; their cards remain unavailable until the complete sources can be decoded.
 
 Player state regression checks (Node.js 18+): `node --test tests/demo.test.cjs`.

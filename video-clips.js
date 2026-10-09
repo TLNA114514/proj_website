@@ -17,8 +17,8 @@ window.EGOFACT_CLIPS = [
     fps: 30,
     frames: 94,
     duration: 3.1333333333333333,
-    ready: false,
-    base: null,
+    ready: true,
+    base: "assets/videos/bare_01/",
   },
   {
     id: "bare_04",
