@@ -815,6 +815,65 @@ input[type="range"]::-webkit-slider-thumb {
   font-size: 12px;
   color: var(--muted);
 }
+.dataset-pipeline {
+  margin: 40px 0 0;
+  scroll-margin-top: 110px;
+}
+.dataset-pipeline-image {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: clamp(12px, 2.5vw, 36px);
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  cursor: zoom-in;
+  transition:
+    border-color 0.25s,
+    box-shadow 0.25s;
+}
+.dataset-pipeline-image:hover {
+  border-color: #a5b5af;
+  box-shadow: 0 8px 30px #1b1d1b08;
+}
+.dataset-pipeline-image > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.dataset-expand {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  background: #fffffff0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+}
+.dataset-expand svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.dataset-pipeline figcaption {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 5px 24px;
+  margin-top: 15px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.dataset-pipeline figcaption strong {
+  color: var(--ink);
+  font-weight: 500;
+}
 .dataset-bottom {
   display: grid;
   grid-template-columns: 1fr 1fr;

@@ -19,7 +19,7 @@ Open <http://127.0.0.1:8000>.
 - `hoi.js` / `hoi-viewer.js`: paired RGB/tactile/contact examples and an interactive GLB viewer.
 - `app.js`: independent still-image sample viewers and the five evaluation tracks transcribed from Table 2. Best values are highlighted per metric, including metrics where the baseline is better.
 - `styles.css`: typography, responsive layout, transitions, and reduced-motion support.
-- `assets/figures/`: compressed WebP figures extracted from the supplied manuscript. The sample viewer shows actual stills; it is not a live model or a video.
+- `assets/figures/`: compressed WebP figures extracted from the supplied manuscript and appendix. The Dataset section includes the appendix's data collection pipeline (Figure 2), with responsive image sizes and click-to-enlarge viewing. The sample viewer shows actual stills; it is not a live model or a video.
 
 All manuscript PDFs stay outside the published assets and are ignored by Git. Local extraction intermediates are stored under `.work/`, which is also ignored. No manuscript PDF is required to run the website.
 
