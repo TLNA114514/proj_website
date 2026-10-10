@@ -17,6 +17,7 @@
   const connection = navigator.connection;
   const allowPreload =
     !connection?.saveData && !/2g|3g/.test(connection?.effectiveType || "");
+  let carousel;
   let selectedEntry;
   let presentedEntry;
   let exitingEntry;
@@ -398,6 +399,7 @@
         String(button.dataset.clip === clip.id),
       );
     });
+    carousel?.set(clips.indexOf(clip));
     videos = selectedEntry.videos;
     videos.forEach((video) => {
       video.playbackRate = Number(speed.value);
@@ -449,44 +451,20 @@
     label.className = "clip-name";
     label.textContent = clip.label;
     button.append(label);
-    button.addEventListener("click", () => choose(clip));
     button.addEventListener("pointerenter", () => warm(clip));
     button.addEventListener("focus", () => warm(clip));
-    button.addEventListener("keydown", (event) => {
-      const readyClips = clips.filter((item) => item.ready);
-      const current = readyClips.indexOf(clip);
-      let next;
-      if (event.key === "ArrowRight") next = (current + 1) % readyClips.length;
-      if (event.key === "ArrowLeft")
-        next = (current - 1 + readyClips.length) % readyClips.length;
-      if (event.key === "Home") next = 0;
-      if (event.key === "End") next = readyClips.length - 1;
-      if (next === undefined) return;
-      event.preventDefault();
-      choose(readyClips[next], true);
-      strip.children[clips.indexOf(readyClips[next])].scrollIntoView({
-        behavior: reducedMotion.matches ? "instant" : "smooth",
-        block: "nearest",
-        inline: "nearest",
-      });
-    });
     strip.append(button);
   });
-  function scrollStrip(direction) {
-    strip.scrollBy({
-      left: direction * strip.clientWidth * 0.7,
-      behavior: reducedMotion.matches ? "instant" : "smooth",
-    });
-  }
-  function scrollButtons() {
-    q("#clip-previous").disabled = strip.scrollLeft <= 1;
-    q("#clip-next").disabled =
-      strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 1;
-  }
-  q("#clip-previous").addEventListener("click", () => scrollStrip(-1));
-  q("#clip-next").addEventListener("click", () => scrollStrip(1));
-  strip.addEventListener("scroll", scrollButtons, { passive: true });
-  window.addEventListener("resize", scrollButtons, { passive: true });
+  carousel = window.EgoCarousel({
+    strip,
+    previous: q("#clip-previous"),
+    next: q("#clip-next"),
+    onSelect: (index) => choose(clips[index]),
+    initial: Math.max(
+      0,
+      clips.findIndex((clip) => clip.ready),
+    ),
+  });
   play.addEventListener("click", () => {
     if (failed) {
       choose(selected);
@@ -533,5 +511,4 @@
   });
   window.addEventListener("pagehide", pause);
   choose(clips.find((clip) => clip.ready) || clips[0]);
-  scrollButtons();
 })();

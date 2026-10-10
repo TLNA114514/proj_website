@@ -24,7 +24,9 @@
     <script src="site-config.js" defer></script>
     <script src="app.js" defer></script>
     <script src="video-clips.js" defer></script>
+    <script src="carousel.js" defer></script>
     <script src="demo.js" defer></script>
+    <script src="hoi.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
@@ -148,13 +150,15 @@
             and contact, moment by moment.
           </p>
         </div>
-        <div class="clip-picker">
+        <div class="clip-picker orbit-picker">
           <button
             class="icon-button"
             id="clip-previous"
-            aria-label="Scroll to previous videos"
+            aria-label="Previous video example"
           >
-            ←
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="m14.5 6-6 6 6 6" />
+            </svg>
           </button>
           <div
             class="clip-strip"
@@ -165,9 +169,11 @@
           <button
             class="icon-button"
             id="clip-next"
-            aria-label="Scroll to next videos"
+            aria-label="Next video example"
           >
-            →
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="m9.5 6 6 6-6 6" />
+            </svg>
           </button>
         </div>
         <div class="demo-stage" id="demo-stage" aria-busy="true">
@@ -712,31 +718,163 @@
               learning.
             </p>
           </div>
-          <div class="application-grid">
-            <article class="application-card reveal">
-              <button
-                class="application-image"
-                data-lightbox="assets/figures/reconstruction.webp"
-                data-caption="Figure 5. Estimated tactile cues refine hand–object contact in 3D reconstruction."
-                aria-label="View hand-object reconstruction examples"
-              >
-                <img
-                  src="assets/figures/cube.webp"
-                  width="1360"
-                  height="983"
-                  alt="A hand holding a Rubik’s cube alongside a tactile field and refined 3D hand-object reconstruction"
-                  loading="lazy"
-                /><span class="application-number">01</span
-                ><span class="application-arrow" aria-hidden="true">↗</span>
-              </button>
-              <h3>More faithful 3D interactions.</h3>
+          <article id="hoi" class="hoi-demo reveal" aria-labelledby="hoi-title">
+            <div class="hoi-heading">
+              <div>
+                <span class="eyebrow">HAND–OBJECT RECONSTRUCTION</span>
+                <h3 id="hoi-title">Explore the interaction in 3D.</h3>
+              </div>
               <p>
-                Estimated contact and force cues refine coarse hand–object
-                reconstructions, reducing penetration and improving contact
-                alignment.
+                From a single image to tactile cues<br />and a refined
+                hand–object reconstruction.
               </p>
-              <span class="eyebrow">HAND–OBJECT RECONSTRUCTION</span>
-            </article>
+            </div>
+            <div class="clip-picker orbit-picker hoi-picker">
+              <button
+                id="hoi-previous"
+                class="icon-button"
+                aria-label="Previous 3D example"
+              >
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="m14.5 6-6 6 6 6" />
+                </svg>
+              </button>
+              <div
+                id="hoi-strip"
+                class="clip-strip"
+                role="group"
+                aria-label="3D examples. Use left and right arrow keys."
+              >
+                <button
+                  class="clip-card"
+                  data-hoi="apple"
+                  aria-label="demo_1: apple"
+                  aria-pressed="true"
+                >
+                  <img
+                    src="assets/hoi/apple/rgb.webp"
+                    alt=""
+                    loading="lazy"
+                    width="240"
+                    height="150"
+                  /><span class="clip-name">demo_1</span>
+                </button>
+                <button
+                  class="clip-card"
+                  data-hoi="cube"
+                  aria-label="demo_2: cube"
+                  aria-pressed="false"
+                >
+                  <img
+                    src="assets/hoi/cube/rgb.webp"
+                    alt=""
+                    loading="lazy"
+                    width="240"
+                    height="150"
+                  /><span class="clip-name">demo_2</span>
+                </button>
+                <button
+                  class="clip-card"
+                  data-hoi="milk"
+                  aria-label="demo_3: milk"
+                  aria-pressed="false"
+                >
+                  <img
+                    src="assets/hoi/milk/rgb.webp"
+                    alt=""
+                    loading="lazy"
+                    width="240"
+                    height="150"
+                  /><span class="clip-name">demo_3</span>
+                </button>
+              </div>
+              <button
+                id="hoi-next"
+                class="icon-button"
+                aria-label="Next 3D example"
+              >
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="m9.5 6 6 6-6 6" />
+                </svg>
+              </button>
+            </div>
+            <div class="hoi-stage" id="hoi-stage" aria-busy="false">
+              <div class="hoi-images" id="hoi-images">
+                <div class="hoi-image-set is-current" data-example="apple">
+                  <figure class="hoi-rgb">
+                    <figcaption>Input RGB</figcaption>
+                    <div>
+                      <img
+                        src="assets/hoi/apple/rgb.webp"
+                        width="553"
+                        height="768"
+                        alt="Input photo of a hand holding an apple"
+                        loading="lazy"
+                      />
+                    </div>
+                  </figure>
+                  <figure>
+                    <figcaption>Tactile</figcaption>
+                    <div>
+                      <img
+                        src="assets/hoi/apple/tactile.webp"
+                        width="768"
+                        height="768"
+                        alt="Estimated tactile field for the apple example"
+                        loading="lazy"
+                      />
+                    </div>
+                  </figure>
+                  <figure>
+                    <figcaption>Contact</figcaption>
+                    <div>
+                      <img
+                        src="assets/hoi/apple/contact.webp"
+                        width="768"
+                        height="768"
+                        alt="Estimated contact for the apple example"
+                        loading="lazy"
+                      />
+                    </div>
+                  </figure>
+                </div>
+              </div>
+              <div class="hoi-model-panel">
+                <div class="hoi-model-heading">
+                  <span>Hand–object mesh</span
+                  ><span class="hoi-legend"><i></i> Hand <i></i> Object</span>
+                </div>
+                <div id="hoi-canvas" class="hoi-canvas"></div>
+                <div id="hoi-loading" class="hoi-loading">
+                  <span id="hoi-load-text" role="status"
+                    >Preparing interactive view…</span
+                  ><button id="hoi-retry" hidden>Retry</button>
+                </div>
+                <div class="hoi-view-controls" aria-label="3D view controls">
+                  <button id="hoi-zoom-out" aria-label="Zoom out" disabled>
+                    −</button
+                  ><button id="hoi-zoom-in" aria-label="Zoom in" disabled>
+                    +</button
+                  ><button id="hoi-reset" disabled>
+                    Reset view <span aria-hidden="true">↺</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="hoi-footnote">
+              <span id="hoi-current">demo_1</span
+              ><span id="hoi-hint"
+                >Drag to rotate · Scroll or pinch to zoom · Right-drag to
+                pan</span
+              >
+            </div>
+            <noscript
+              ><p>
+                Enable JavaScript to rotate and zoom the 3D reconstructions.
+              </p></noscript
+            >
+          </article>
+          <div class="application-grid imitation-feature">
             <article class="application-card reveal">
               <button
                 class="application-image imitation-image"
@@ -750,8 +888,7 @@
                   height="859"
                   alt="Dexterous imitation of mustard bottle, foam brick and soup can manipulation, with learning curves comparing PPO and tactile-guided PPO"
                   loading="lazy"
-                /><span class="application-number">02</span
-                ><span class="application-arrow" aria-hidden="true">↗</span>
+                /><span class="application-arrow" aria-hidden="true">↗</span>
               </button>
               <h3>Learning with a sense of touch.</h3>
               <p>

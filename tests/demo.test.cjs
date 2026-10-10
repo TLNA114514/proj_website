@@ -32,6 +32,7 @@ class Element {
   }
   emit(name, event = {}) {
     for (const callback of this.listeners[name] || []) callback(event);
+    if (name === "keydown" && this.parent) this.parent.emit(name, event);
   }
   setAttribute(key, value) {
     this.attributes[key] = value;
@@ -137,22 +138,31 @@ function fixture({
   let frame = 0;
   const timers = new Map();
   let timer = 0;
-  vm.runInNewContext(script, {
-    window,
-    document,
-    navigator: { connection },
-    setTimeout: (callback, delay) => {
-      timers.set(++timer, { callback, delay });
-      return timer;
+  vm.runInNewContext(
+    fs.readFileSync(
+      require("node:path").join(__dirname, "../carousel.js"),
+      "utf8",
+    ) +
+      "\n" +
+      script,
+    {
+      performance: { now: () => 0 },
+      window,
+      document,
+      navigator: { connection },
+      setTimeout: (callback, delay) => {
+        timers.set(++timer, { callback, delay });
+        return timer;
+      },
+      clearTimeout: (id) => timers.delete(id),
+      matchMedia: () => ({ matches: false }),
+      requestAnimationFrame: (fn) => {
+        frames.set(++frame, fn);
+        return frame;
+      },
+      cancelAnimationFrame: (id) => frames.delete(id),
     },
-    clearTimeout: (id) => timers.delete(id),
-    matchMedia: () => ({ matches: false }),
-    requestAnimationFrame: (fn) => {
-      frames.set(++frame, fn);
-      return frame;
-    },
-    cancelAnimationFrame: (id) => frames.delete(id),
-  });
+  );
   const videos = () =>
     ["rgb", "tactile", "contact"].map(
       (kind) =>

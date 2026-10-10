@@ -1,0 +1,2 @@
+# Preserve the upstream GLSL template strings in the generated vendor bundle.
+assets/vendor/hoi-three.js -whitespace linguist-vendored=true

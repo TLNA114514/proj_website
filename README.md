@@ -1,6 +1,6 @@
 # EgoFact project website
 
-A minimal, responsive research project page for **EgoFact: Estimating Dense Full-Hand Tactile Fields from Egocentric Human Videos**. Built with HTML, CSS, and vanilla JavaScript; no build step or third-party runtime dependencies.
+A minimal, responsive research project page for **EgoFact: Estimating Dense Full-Hand Tactile Fields from Egocentric Human Videos**. Built with HTML, CSS, and vanilla JavaScript; no build step required. The interactive 3D viewer uses locally bundled Three.js and meshoptimizer, loaded only near the HOI section.
 
 ## Local preview
 
@@ -15,6 +15,8 @@ Open <http://127.0.0.1:8000>.
 - `site-config.js`: anonymous author details, affiliations, public website URL (`websiteUrl`), and external paper URL. An empty paper URL produces an explicit “Coming soon” state.
 - `index.html`: narrative sections, dataset statistics, preliminary citation, and resource availability.
 - `demo.js` / `video-clips.js`: synchronized RGB, tactile, and contact video player and generated clip catalog.
+- `carousel.js`: shared circular selectors, with centered selection, distance-based fading/blur, swipe and keyboard navigation.
+- `hoi.js` / `hoi-viewer.js`: paired RGB/tactile/contact examples and an interactive GLB viewer.
 - `app.js`: independent still-image sample viewers and the five evaluation tracks transcribed from Table 2. Best values are highlighted per metric, including metrics where the baseline is better.
 - `styles.css`: typography, responsive layout, transitions, and reduced-motion support.
 - `assets/figures/`: compressed WebP figures extracted from the supplied manuscript. The sample viewer shows actual stills; it is not a live model or a video.
@@ -63,3 +65,22 @@ All five supplied clips are available, displayed as `demo_1` through `demo_5` in
 Player state regression checks (Node.js 18+): `node --test tests/demo.test.cjs`.
 
 The player keeps up to three recent clips in memory. Hover/focus prepares a requested clip; the next clip is preloaded after the current one finishes buffering. Speculative video loading is disabled when the browser reports data saving or a slow connection. Video layers crossfade over the previous frame, with posters covering unfinished loads. Reduced-motion preferences disable the transitions. Both still-image categories start at sample 1 and preserve their page independently.
+
+## Interactive hand–object reconstruction
+
+The HOI gallery at `#hoi` pairs the supplied apple, cube and milk examples, labeled `demo_1`–`demo_3`. Desktop uses four aligned columns (RGB, tactile, contact and a wider mesh panel); mobile puts the image row above the mesh. Drag to orbit, right-drag to pan, and scroll or pinch to zoom. The mesh also supports arrow-key rotation, `+`/`−` zoom, and `R` to reset, plus visible zoom/reset buttons.
+
+`assets/hoi/` contains derived WebP images and GLBs. RGB exports are trimmed only around the exterior white padding (apple: 553×768, cube: 768×512, milk: 576×768), with the entire photo preserved. The supplied source files remain untouched. The three models use lossless `EXT_meshopt_compression`, totaling 12.72 MB instead of 35.50 MB. Vertex attributes and index sequences are verified byte-for-byte against the originals during preparation; no simplification or quantization is applied. Triangle counts are unchanged.
+
+The viewer loads on approach, caches the three selected models, and renders only when the view changes. Rapid selection uses only the newest requested result and retains the previous view during loading. Images and meshes fade between completed selections. The video and HOI galleries share the same compact, circular selector, with the current example centered and progressively faded/softened neighbors. Reduced-motion preferences skip animated switching.
+
+Prepare image derivatives (requires Pillow), then compress models (requires meshoptimizer 1.3.0 and Node.js):
+
+```sh
+python3 scripts/prepare-hoi-images.py /path/to/Downloads
+node scripts/prepare-hoi-meshes.mjs /path/to/good-meshes /path/to/meshoptimizer/package
+```
+
+The self-contained `assets/vendor/hoi-three.js` bundle was generated with Three.js 0.186.1, meshoptimizer 1.3.0 and esbuild 0.28.2 from `scripts/hoi-vendor-entry.mjs`. Build instructions are in that file; dependency licenses are alongside the bundle. There are no runtime CDN requests. Rebuilding the vendor bundle is needed only when changing its dependencies.
+
+Run all player, carousel and GLB compatibility checks with `node --test tests/*.test.cjs` (Node.js 22+).

@@ -2390,3 +2390,511 @@ input[type="range"]::-moz-range-thumb {
   height: 100%;
   object-fit: contain;
 }
+
+/* Compact, centered selectors shared by videos and 3D examples. */
+.orbit-picker {
+  position: relative;
+  max-width: 880px;
+  margin: 4px auto 24px;
+  gap: 0;
+}
+.orbit-picker .icon-button {
+  position: absolute;
+  z-index: 20;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  background: var(--paper);
+  box-shadow: 0 4px 14px #1b1d1b0a;
+}
+.orbit-picker .icon-button:first-child {
+  left: 0;
+}
+.orbit-picker .icon-button:last-child {
+  right: 0;
+}
+.orbit-strip {
+  display: block;
+  position: relative;
+  height: 168px;
+  overflow: clip;
+  scroll-snap-type: none;
+  padding: 0;
+  touch-action: pan-y;
+  user-select: none;
+  cursor: grab;
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 9%,
+    #000 91%,
+    transparent
+  );
+}
+.orbit-strip.is-dragging {
+  cursor: grabbing;
+}
+.orbit-strip .clip-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 176px;
+  min-width: 0;
+  border-radius: 9px;
+  will-change: transform, opacity, filter;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+  transform-origin: center;
+  background: #fff;
+}
+.orbit-strip .clip-card img {
+  width: 100%;
+  height: 110px;
+  aspect-ratio: auto;
+  object-fit: cover;
+  transform: none;
+  -webkit-user-drag: none;
+}
+.orbit-strip .clip-name {
+  padding: 8px 11px;
+  font-size: 11px;
+}
+.orbit-strip .clip-card[aria-pressed="true"] {
+  border-color: var(--accent);
+  box-shadow:
+    0 0 0 2px var(--paper),
+    0 0 0 3px var(--accent),
+    0 7px 20px #1b1d1b12;
+}
+.orbit-strip .clip-card[aria-pressed="true"] .clip-name::after {
+  content: "●";
+  font-size: 6px;
+  color: var(--accent);
+}
+.orbit-strip .clip-card:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+}
+
+/* Tactile-guided hand–object reconstruction. */
+.hoi-demo {
+  scroll-margin-top: 110px;
+}
+.hoi-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 30px;
+}
+.hoi-heading .eyebrow {
+  display: block;
+  color: var(--accent);
+  font-size: 10px;
+  margin-bottom: 14px;
+}
+.hoi-heading h3 {
+  font-size: clamp(26px, 3vw, 38px);
+  letter-spacing: -0.035em;
+}
+.hoi-heading p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 0 0 3px;
+}
+.hoi-picker {
+  max-width: 590px;
+  margin-top: 25px;
+}
+.hoi-picker .clip-card img {
+  object-fit: cover;
+}
+.hoi-stage {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr;
+  height: 410px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+}
+.hoi-images {
+  position: relative;
+  min-width: 0;
+  border-right: 1px solid var(--line);
+}
+.hoi-image-set {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: 100%;
+  background: #fff;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition:
+    opacity 0.42s var(--ease),
+    transform 0.42s var(--ease);
+  pointer-events: none;
+}
+.hoi-image-set.is-current {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+  z-index: 2;
+}
+.hoi-image-set.is-previous {
+  opacity: 1;
+  transform: none;
+  visibility: visible;
+  z-index: 1;
+}
+.hoi-image-set figure {
+  margin: 0;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+.hoi-image-set figcaption {
+  font-size: 12px;
+  padding: 16px 20px 9px;
+}
+.hoi-image-set figure > div {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px 14px;
+}
+.hoi-image-set img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.hoi-image-set .hoi-rgb {
+  background: #f4f4f0;
+}
+.hoi-image-set figure + figure {
+  border-left: 1px solid var(--line);
+}
+.hoi-rgb > div img {
+  width: auto;
+  max-width: 100%;
+  border-radius: 3px;
+}
+.hoi-model-panel {
+  position: relative;
+  min-width: 0;
+  background: radial-gradient(ellipse at 50% 48%, #fff, #f5f6f2);
+}
+.hoi-model-heading {
+  position: absolute;
+  top: 19px;
+  left: 22px;
+  right: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+  pointer-events: none;
+  z-index: 3;
+}
+.hoi-legend {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 10px;
+}
+.hoi-legend i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #d4c7b0;
+}
+.hoi-legend i + i,
+.hoi-legend i:last-child {
+  margin-left: 8px;
+  background: #3878d1;
+}
+.hoi-canvas {
+  position: absolute;
+  inset: 49px 0 60px;
+}
+.hoi-canvas canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  touch-action: none;
+  cursor: grab;
+}
+.hoi-canvas canvas:active {
+  cursor: grabbing;
+}
+.hoi-canvas canvas:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -4px;
+}
+.hoi-canvas.context-lost::after {
+  content: "Restoring 3D view…";
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  background: #fafaf8dd;
+  font-size: 12px;
+}
+.hoi-mesh-snapshot {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  transition: opacity 0.42s var(--ease);
+}
+.hoi-loading {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 85%;
+  min-width: 180px;
+  padding: 14px 20px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #fffffff0;
+  font-size: 12px;
+  color: var(--muted);
+  text-align: center;
+  box-shadow: 0 5px 25px #1b1d1b08;
+}
+.hoi-loading[hidden] {
+  display: none;
+}
+#hoi-retry {
+  display: block;
+  margin: 8px auto 0;
+  font-size: 12px;
+  text-decoration: underline;
+}
+#hoi-retry[hidden] {
+  display: none;
+}
+.hoi-view-controls {
+  position: absolute;
+  bottom: 19px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+}
+.hoi-view-controls button {
+  height: 32px;
+  min-width: 32px;
+  padding: 0 10px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  background: #ffffffba;
+  font-size: 13px;
+  transition: background 0.2s;
+}
+.hoi-view-controls button:hover {
+  background: #fff;
+}
+.hoi-view-controls button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+#hoi-reset {
+  font-size: 11px;
+  margin-left: 6px;
+}
+#hoi-reset span {
+  margin-left: 14px;
+}
+.hoi-footnote {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  margin-top: 14px;
+  font-size: 11px;
+  color: var(--muted);
+}
+#hoi-current {
+  color: var(--ink);
+  white-space: nowrap;
+}
+.imitation-feature {
+  display: block;
+  margin-top: 80px;
+  border-top: 1px solid var(--line);
+  padding-top: 55px;
+}
+.imitation-feature .application-card {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  grid-template-rows: auto auto 1fr;
+  column-gap: 7%;
+}
+.imitation-feature .application-image {
+  grid-column: 1;
+  grid-row: 1 / 4;
+  height: auto;
+  padding: 20px;
+  min-height: 210px;
+  background: white;
+}
+.imitation-feature .application-image img {
+  width: 100%;
+  height: auto;
+}
+.imitation-feature h3 {
+  margin-top: 20px;
+}
+.imitation-feature .application-card > .eyebrow {
+  padding-bottom: 20px;
+}
+@media (max-width: 700px) {
+  .orbit-picker {
+    margin-bottom: 18px;
+  }
+  .orbit-strip {
+    height: 150px;
+  }
+  .orbit-strip .clip-card {
+    width: 144px;
+  }
+  .orbit-strip .clip-card img {
+    height: 90px;
+  }
+  .orbit-picker .icon-button {
+    width: 30px;
+    height: 30px;
+  }
+  .hoi-heading {
+    display: block;
+  }
+  .hoi-heading p {
+    margin-top: 15px;
+  }
+  .hoi-stage {
+    grid-template-columns: 1fr;
+    grid-template-rows: 230px 340px;
+    height: auto;
+  }
+  .hoi-images {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .hoi-image-set figure > div {
+    padding: 3px 5px 12px;
+  }
+  .hoi-image-set figcaption {
+    padding: 12px 14px 6px;
+  }
+  .hoi-model-heading {
+    left: 15px;
+    right: 15px;
+  }
+  .hoi-footnote {
+    align-items: flex-start;
+    font-size: 10px;
+  }
+  #hoi-hint {
+    max-width: 250px;
+    text-align: right;
+  }
+  .imitation-feature {
+    margin-top: 50px;
+    padding-top: 35px;
+  }
+  .imitation-feature .application-card {
+    display: block;
+  }
+  .imitation-feature .application-image {
+    min-height: 0;
+    padding: 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hoi-image-set,
+  .hoi-mesh-snapshot {
+    transition: none;
+    transform: none;
+  }
+}
+.orbit-picker .icon-button {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid #d5d9d3;
+  border-radius: 50%;
+  background: #ffffffed;
+  box-shadow:
+    0 3px 6px #202c2410,
+    0 9px 24px #202c2408;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s,
+    scale 0.2s;
+}
+.orbit-picker .icon-button svg {
+  width: 19px;
+  height: 19px;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.25s var(--ease);
+}
+.orbit-picker .icon-button:hover {
+  background: #eef2ed;
+  border-color: #a5b5af;
+  box-shadow: 0 5px 14px #202c2418;
+}
+.orbit-picker .icon-button:active {
+  scale: 0.93;
+}
+.orbit-picker .icon-button:first-child:hover svg {
+  transform: translateX(-2px);
+}
+.orbit-picker .icon-button:last-child:hover svg {
+  transform: translateX(2px);
+}
+.hoi-image-set figcaption {
+  padding: 19px 17px 10px;
+}
+.hoi-image-set figure > div {
+  padding: 7px 14px 22px;
+}
+@media (max-width: 700px) {
+  .orbit-picker .icon-button {
+    width: 34px;
+    height: 34px;
+  }
+  .orbit-picker .icon-button svg {
+    width: 16px;
+    height: 16px;
+  }
+  .hoi-image-set figcaption {
+    font-size: 11px;
+    padding: 15px 10px 7px;
+  }
+  .hoi-image-set figure > div {
+    padding: 4px 6px 15px;
+  }
+}
