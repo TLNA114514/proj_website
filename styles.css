@@ -91,7 +91,8 @@ em {
   outline: 2px solid var(--accent);
   outline-offset: 6px;
 }
-button:focus-visible {
+/* Let component positioning win when a button receives keyboard focus. */
+:where(button):focus-visible {
   position: relative;
   z-index: 2;
 }
