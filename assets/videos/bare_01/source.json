@@ -3,5 +3,6 @@
   "bare_01_OURS_left_tactile_alpha.mov": 33109608,
   "bare_01_OURS_right_tactile_alpha.mov": 33409743,
   "bare_01_OURS_left_contact_alpha.mov": 29503829,
-  "bare_01_OURS_right_contact_alpha.mov": 29747961
+  "bare_01_OURS_right_contact_alpha.mov": 29747961,
+  "left_hand_horizontal_flip": true
 }

@@ -58,6 +58,10 @@ def main():
         complete = all(p.exists() and p.stat().st_size > 0 and (p.name not in expected or p.stat().st_size == expected[p.name]['bytes']) for p in files)
         receipt = out / 'source.json'
         signature = {p.name: p.stat().st_size for p in files if p.exists()}
+        # Left-hand predictions are exported in the canonical right-hand orientation.
+        # Record the correction so existing unmirrored derivatives are rebuilt once.
+        if hands == 'Both hands':
+            signature['left_hand_horizontal_flip'] = True
         prepared = receipt.exists() and json.loads(receipt.read_text()) == signature and all((out / f'{kind}.{ext}').exists() for kind in ('rgb', 'tactile', 'contact') for ext in ('mp4', 'webp'))
         if complete and (not prepared or args.force):
             print(f'Preparing {clip_id}', flush=True)
@@ -69,7 +73,8 @@ def main():
                 filters = []
                 for i, p in enumerate(paths):
                     inputs += input_args(p)
-                    filters += [f'[{i}:v]scale=512:512,setsar=1,format=rgba[hand{i}]', f'color=c=white:s=512x512:r=30[bg{i}]', f'[bg{i}][hand{i}]overlay=shortest=1:format=auto[flat{i}]']
+                    mirror = 'hflip,' if len(paths) == 2 and i == 0 else ''
+                    filters += [f'[{i}:v]{mirror}scale=512:512,setsar=1,format=rgba[hand{i}]', f'color=c=white:s=512x512:r=30[bg{i}]', f'[bg{i}][hand{i}]overlay=shortest=1:format=auto[flat{i}]']
                 if len(paths) == 2:
                     filters += ['[flat0][flat1]hstack=inputs=2,pad=1024:576:0:32:white,format=yuv420p[result]']
                 else:

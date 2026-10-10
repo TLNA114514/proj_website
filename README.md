@@ -47,7 +47,7 @@ Interactions include sample selection, accessible method tabs, a native figure d
 
 The gallery follows the input-selection and shared-timeline pattern of [FlowHMR](https://flowhmr.github.io/). Choose a thumbnail, play/pause the three views together, scrub at 30 fps, or change playback speed. Clips loop together. Switching a clip resets its timeline while preserving whether playback is active; switching image categories preserves each category’s selected image independently.
 
-`assets/videos/` contains compressed, silent H.264 MP4s and WebP posters. Playback uses 768-pixel-wide `*-preview.mp4` variants (30 fps, one-second keyframes, fast-start headers); the earlier MP4s remain intact. These playback variants total about 4.24 MB, compared with about 10.4 MB for the earlier tracks. Each output combines the available left/right hand renders on white, preserving the supplied alpha masks. Single-hand samples show one hand. These are precomputed results from the supplied clips.
+`assets/videos/` contains compressed, silent H.264 MP4s and WebP posters. Playback uses 768-pixel-wide `*-preview.mp4` variants (30 fps, one-second keyframes, fast-start headers); the earlier MP4s remain intact. These playback variants total about 4.24 MB, compared with about 10.4 MB for the earlier tracks. Each output combines the available left/right hand renders on white, preserving the supplied alpha masks. Left-hand tactile and contact renders are horizontally mirrored before composition to restore their left-hand orientation; matching posters and lightweight playback variants use the same correction. Single-hand samples show one hand. These are precomputed results from the supplied clips.
 
 To add clips after downloading their originals:
 

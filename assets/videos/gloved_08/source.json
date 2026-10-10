@@ -3,5 +3,6 @@
   "gloved_08_OURS_left_tactile_alpha.mov": 21925513,
   "gloved_08_OURS_right_tactile_alpha.mov": 72838597,
   "gloved_08_OURS_left_contact_alpha.mov": 20334316,
-  "gloved_08_OURS_right_contact_alpha.mov": 64215040
+  "gloved_08_OURS_right_contact_alpha.mov": 64215040,
+  "left_hand_horizontal_flip": true
 }
